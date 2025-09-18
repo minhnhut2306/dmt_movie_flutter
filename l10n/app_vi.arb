@@ -1,0 +1,14 @@
+{
+  "@@locale": "vi",
+  "appTitle": "DMT Movie",
+  "homeTitle": "Phim",
+  "settingsTitle": "Cài đặt",
+  "openSettings": "Mở cài đặt",
+  "seeDetails": "Xem chi tiết",
+  "noMovies": "Không có phim",
+
+  "tabHome": "Trang chủ",
+  "tabSearch": "Tìm kiếm",
+  "tabSettings": "Cài đặt",
+  "searchTitle": "Tìm kiếm"
+}

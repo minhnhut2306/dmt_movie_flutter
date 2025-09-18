@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "appTitle": "DMT Movie",
+  "homeTitle": "Movies",
+  "settingsTitle": "Settings",
+  "openSettings": "Open settings",
+  "seeDetails": "See details",
+  "noMovies": "No movies",
+
+  "tabHome": "Home",
+  "tabSearch": "Search",
+  "tabSettings": "Settings",
+  "searchTitle": "Search"
+}
