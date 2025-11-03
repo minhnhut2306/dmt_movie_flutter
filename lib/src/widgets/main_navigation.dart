@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import 'package:dmt_movie_flutter/src/core/app_colors.dart';
 import 'package:dmt_movie_flutter/src/core/app_text_styles.dart';
+import 'package:dmt_movie_flutter/src/core/app_assets.dart';
 import 'package:dmt_movie_flutter/src/core/responsive.dart';
 import 'package:dmt_movie_flutter/src/screens/home_screen.dart';
 import 'package:dmt_movie_flutter/src/screens/search_screen.dart';
@@ -28,7 +29,6 @@ class _MainNavigationState extends State<MainNavigation>
   void _onTabTapped(int i) {
     setState(() => _index = i);
   }
-
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
@@ -69,6 +69,7 @@ class _CustomBottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final navHeight = Responsive.bottomNavHeight(context);
     final navMargin = Responsive.bottomNavMargin(context);
+    // Bỏ bo góc - đặt borderRadius = 0
     final navBorderRadius = Responsive.bottomNavBorderRadius(context);
     final blurIntensity = Responsive.blurIntensity(context);
     final shadowBlurRadius = Responsive.shadowBlurRadius(context);
@@ -80,9 +81,13 @@ class _CustomBottomNavBar extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
+          // Glassmorphism background
           Positioned.fill(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(navBorderRadius),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(navBorderRadius),
+                topRight: Radius.circular(navBorderRadius),
+              ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(
                   sigmaX: blurIntensity,
@@ -90,24 +95,24 @@ class _CustomBottomNavBar extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color:
-                        isDark
-                            ? AppColors.glassDark.withOpacity(0.8)
-                            : AppColors.glassLight.withOpacity(0.9),
-                    borderRadius: BorderRadius.circular(navBorderRadius),
+                    color: isDark
+                        ? AppColors.glassDark.withOpacity(0.8)
+                        : AppColors.glassLight.withOpacity(0.9),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(navBorderRadius),
+                      topRight: Radius.circular(navBorderRadius),
+                    ),
                     border: Border.all(
-                      color:
-                          isDark
-                              ? AppColors.darkNavBorder
-                              : AppColors.navBorder,
+                      color: isDark
+                          ? AppColors.darkNavBorder
+                          : AppColors.navBorder,
                       width: 1,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color:
-                            isDark
-                                ? AppColors.shadowDark
-                                : AppColors.shadowLight,
+                        color: isDark
+                            ? AppColors.shadowDark
+                            : AppColors.shadowLight,
                         blurRadius: shadowBlurRadius,
                         offset: shadowOffset,
                       ),
@@ -117,27 +122,22 @@ class _CustomBottomNavBar extends StatelessWidget {
               ),
             ),
           ),
+          // Navigation items
           Positioned.fill(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // Home tab
                 _NavItem(
-                  icon: Icons.home_outlined,
-                  selectedIcon: Icons.home_rounded,
+                  icon: AppIcons.homeOutlined,
+                  selectedIcon: AppIcons.homeFilled,
                   label: localizations.tabHome,
                   isSelected: selectedIndex == 0,
                   onTap: () => onTabTapped(0),
                   isDark: isDark,
                 ),
-                _NavItem(
-                  icon: Icons.home_outlined,
-                  selectedIcon: Icons.home_rounded,
-                  label: localizations.tabHome,
-                  isSelected: selectedIndex == 0,
-                  onTap: () => onTabTapped(0),
-                  isDark: isDark,
-                ),
-
+                
+                // Spacer for center button
                 SizedBox(
                   width: Responsive.responsive<double>(
                     context,
@@ -146,13 +146,15 @@ class _CustomBottomNavBar extends StatelessWidget {
                     largeTablet: 32,
                   ),
                 ),
-
+                
+                // Search tab (center elevated button)
                 _CenterNavItem(
                   isSelected: selectedIndex == 1,
                   onTap: () => onTabTapped(1),
                   isDark: isDark,
                 ),
-
+                
+                // Spacer for center button
                 SizedBox(
                   width: Responsive.responsive<double>(
                     context,
@@ -161,18 +163,11 @@ class _CustomBottomNavBar extends StatelessWidget {
                     largeTablet: 32,
                   ),
                 ),
+                
+                // Settings tab
                 _NavItem(
-                  icon: Icons.person_outline,
-                  selectedIcon: Icons.person,
-                  label: localizations.tabSettings,
-                  isSelected: selectedIndex == 2,
-                  onTap: () => onTabTapped(2),
-                  isDark: isDark,
-                ),
-
-                _NavItem(
-                  icon: Icons.person_outline,
-                  selectedIcon: Icons.person,
+                  icon: AppIcons.settingsOutlined,
+                  selectedIcon: AppIcons.settingsFilled,
                   label: localizations.tabSettings,
                   isSelected: selectedIndex == 2,
                   onTap: () => onTabTapped(2),
@@ -209,28 +204,37 @@ class _NavItem extends StatelessWidget {
     final iconSize = Responsive.iconSize(context, isSelected: isSelected);
     final animationDuration = Responsive.animationDuration(context);
 
-    final color =
-        isSelected
-            ? AppColors.primary
-            : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary);
+    final color = isSelected
+        ? AppColors.primary
+        : (isDark ? AppColors.darkTextSecondary : AppColors.textSecondary);
 
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
+        behavior: HitTestBehavior.opaque,
         child: AnimatedContainer(
           duration: animationDuration,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Icon with animation
               AnimatedSwitcher(
                 duration: animationDuration,
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return ScaleTransition(
+                    scale: animation,
+                    child: child,
+                  );
+                },
                 child: Icon(
                   isSelected ? selectedIcon : icon,
                   color: color,
                   size: iconSize,
-                  key: ValueKey(isSelected),
+                  key: ValueKey('${isSelected}_$icon'),
                 ),
               ),
+              
+              // Spacing
               SizedBox(
                 height: Responsive.responsive<double>(
                   context,
@@ -239,6 +243,8 @@ class _NavItem extends StatelessWidget {
                   largeTablet: 10,
                 ),
               ),
+              
+              // Label with animation
               AnimatedDefaultTextStyle(
                 duration: animationDuration,
                 style: AppTextStyles.getNavLabelStyle(
@@ -246,7 +252,12 @@ class _NavItem extends StatelessWidget {
                   isTablet: Responsive.isTabletOrLarger(context),
                   isDark: isDark,
                 ),
-                child: Text(label, textAlign: TextAlign.center),
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
             ],
           ),
@@ -290,17 +301,30 @@ class _CenterNavItem extends StatelessWidget {
           height: containerSize,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.primary,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: isSelected
+                  ? [
+                      AppColors.primary,
+                      AppColors.primaryDark,
+                    ]
+                  : [
+                      AppColors.primary.withOpacity(0.9),
+                      AppColors.primaryDark.withOpacity(0.9),
+                    ],
+            ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primary.withOpacity(0.3),
+                color: AppColors.primary.withOpacity(isSelected ? 0.4 : 0.3),
                 blurRadius: Responsive.shadowBlurRadius(context),
                 offset: Offset(0, Responsive.shadowOffset(context).dy + 4),
               ),
             ],
             border: Border.all(
-              color:
-                  isDark ? AppColors.darkBackground : AppColors.backgroundLight,
+              color: isDark 
+                  ? AppColors.darkBackground 
+                  : AppColors.backgroundLight,
               width: Responsive.responsive<double>(
                 context,
                 mobile: 6,
@@ -313,7 +337,15 @@ class _CenterNavItem extends StatelessWidget {
             duration: animationDuration,
             scale: isSelected ? 1.1 : 1.0,
             child: Center(
-              child: Icon(Icons.search, color: Colors.white, size: iconSize),
+              child: AnimatedSwitcher(
+                duration: animationDuration,
+                child: Icon(
+                  isSelected ? AppIcons.searchFilled : AppIcons.searchOutlined,
+                  color: Colors.white,
+                  size: iconSize,
+                  key: ValueKey('search_${isSelected}'),
+                ),
+              ),
             ),
           ),
         ),

@@ -75,9 +75,9 @@ class Responsive {
   static double bottomNavBorderRadius(BuildContext context) {
     return responsive<double>(
       context,
-      mobile: 32,
+      mobile: 8,
       tablet: 36,
-      largeTablet: 40,
+      largeTablet: 8,
     );
   }
   

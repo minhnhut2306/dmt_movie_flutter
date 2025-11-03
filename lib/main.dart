@@ -7,7 +7,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final settings = SettingsProvider();
-  await settings.load(); // <-- nạp giá trị đã lưu
+  await settings.load(); 
 
   runApp(
     ChangeNotifierProvider.value(

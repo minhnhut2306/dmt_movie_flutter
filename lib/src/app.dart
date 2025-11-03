@@ -27,7 +27,7 @@ class MovieApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: const [Locale('en'), Locale('vi')],
-      initialRoute: '/',
+     initialRoute: AppRoutes.defaultRoute,
       routes: AppRoutes.map,
     );
   }

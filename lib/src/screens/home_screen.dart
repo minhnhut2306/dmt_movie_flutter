@@ -1,8 +1,6 @@
 import 'package:dmt_movie_flutter/src/utils/update_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
-
-
 import '../services/api_service.dart';
 import '../widgets/movie_card.dart';
 import '../widgets/loading_spinner.dart';
@@ -33,16 +31,6 @@ void initState() {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.homeTitle),
-        actions: [
-          IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
-            icon: const Icon(Icons.settings),
-            tooltip: l10n.openSettings,
-          ),
-        ],
-      ),
       body: FutureBuilder<List<Movie>>(
         future: movies,
         builder: (context, snapshot) {

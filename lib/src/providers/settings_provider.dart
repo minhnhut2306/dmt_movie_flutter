@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  static const _kThemeMode = 'theme_mode'; // 'light' | 'dark' | 'system'
-  static const _kLocale = 'locale_code';   // 'en' | 'vi' | '' (=system)
+  static const _kThemeMode = 'theme_mode';
+  static const _kLocale = 'locale_code';   
 
   ThemeMode _themeMode = ThemeMode.system;
   Locale? _locale;
@@ -11,7 +11,7 @@ class SettingsProvider extends ChangeNotifier {
   ThemeMode get themeMode => _themeMode;
   Locale? get locale => _locale;
 
-  /// Gọi 1 lần lúc khởi động app
+
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
 
