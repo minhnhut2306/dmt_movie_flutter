@@ -11,8 +11,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  final TextEditingController emailController = TextEditingController();
-  bool isChecked = true;
+  final TextEditingController otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,46 +25,45 @@ class _OtpScreenState extends State<OtpScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight * 0.4,
+                height: screenHeight * 0.48,
                 child: Stack(
                   children: [
                     // Background poster
                     Container(
                       decoration: const BoxDecoration(
                         image: DecorationImage(
-                         image: AssetImage(AppImages.img08),
+                          image: AssetImage(AppImages.background),
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
 
-                    // Gradient overlay nhẹ ở dưới ảnh
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withOpacity(0.8),
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
+                    // Gradient phủ toàn bộ ảnh -> giúp chuyển mượt xuống nền đen
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.0),
+                            Colors.black.withOpacity(0.3),
+                            Colors.black.withOpacity(0.6),
+                            Colors.black.withOpacity(0.9),
+                            Colors.black,
+                          ],
+                          stops: const [0.0, 0.5, 0.7, 0.85, 1.0],
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
+
               Expanded(
                 child: Container(
                   color: Colors.black,
                   child: Transform.translate(
-                    offset: const Offset(0, -40),
+                    offset: const Offset(0, -150),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
@@ -85,6 +83,8 @@ class _OtpScreenState extends State<OtpScreen> {
                             ),
                           ),
                           const SizedBox(height: 8),
+
+                          // Mô tả phụ
                           Text(
                             "Nhập mã OTP đã được gửi đến email của bạn",
                             textAlign: TextAlign.center,
@@ -122,7 +122,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 ),
                                 const SizedBox(height: 8),
                                 CustomTextField(
-                                  controller: emailController,
+                                  controller: otpController,
                                   hintText: 'Nhập mã OTP',
                                   keyboardType: TextInputType.number,
                                 ),
@@ -144,30 +144,29 @@ class _OtpScreenState extends State<OtpScreen> {
                             ),
                           ),
 
-                          // Spacer để đẩy nút xuống dưới
+                          // Spacer đẩy text xuống dưới
                           const Spacer(),
-
-                          // Nút quay lại ở dưới cùng, ngoài Container form
-                          GestureDetector(
-                            onTap: () {
-                              // Navigate back to login
-                              Navigator.pop(context);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 32),
-                              child: Text(
-                                'Quay lại màn hình đăng nhập',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.8),
-                                  fontSize: 13,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Nút quay lại nằm ngoài Transform.translate, ở dưới cùng màn hình
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+                  child: Text(
+                    'Quay lại màn hình đăng nhập',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.8),
+                      fontSize: 13,
+                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
@@ -181,7 +180,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   void dispose() {
-    emailController.dispose();
+    otpController.dispose();
     super.dispose();
   }
 }

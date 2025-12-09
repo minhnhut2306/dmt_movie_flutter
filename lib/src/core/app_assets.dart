@@ -17,4 +17,5 @@ class AppImages {
   static const String img08 = '${basePath}08.jpg';
   static const String treen = '${basePath}treem.jpg';
   static const String add = '${basePath}add.png';
+  static const String background = '${basePath}background.jpg';
 }
