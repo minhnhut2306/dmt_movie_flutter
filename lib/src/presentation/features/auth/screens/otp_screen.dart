@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/app_text_styles.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
@@ -50,19 +49,20 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = Responsive.maxContentWidth(context);
-          
+
           return SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Center(
                 child: Container(
-                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
+                  width:
+                      maxWidth == double.infinity ? double.infinity : maxWidth,
                   child: Column(
                     children: [
                       const AuthBackground(),
@@ -70,14 +70,19 @@ class _OtpScreenState extends State<OtpScreen> {
                         child: Container(
                           color: Colors.black,
                           child: Transform.translate(
-                            offset: Offset(0, Responsive.authHeaderOffset(context)),
+                            offset: Offset(
+                              0,
+                              Responsive.authHeaderOffset(context),
+                            ),
                             child: Padding(
                               padding: Responsive.horizontalPadding(context),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   _buildHeader(l10n),
-                                  SizedBox(height: Responsive.spacingXL(context)),
+                                  SizedBox(
+                                    height: Responsive.spacingXL(context),
+                                  ),
                                   _buildOtpForm(l10n),
                                   const Spacer(),
                                 ],
@@ -109,8 +114,12 @@ class _OtpScreenState extends State<OtpScreen> {
             fontSize: Responsive.titleFontSize(context),
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            shadows: const [
-              Shadow(color: Colors.black87, blurRadius: 20),
+            height: Responsive.lineHeight12(context),
+            shadows: [
+              Shadow(
+                color: Colors.black87,
+                blurRadius: Responsive.shadowBlur(context),
+              ),
             ],
           ),
         ),
@@ -123,8 +132,12 @@ class _OtpScreenState extends State<OtpScreen> {
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
             fontSize: Responsive.bodyFontSize(context),
-            shadows: const [
-              Shadow(color: Colors.black87, blurRadius: 15),
+            height: Responsive.lineHeight14(context),
+            shadows: [
+              Shadow(
+                color: Colors.black87,
+                blurRadius: Responsive.textBlur(context),
+              ),
             ],
           ),
         ),

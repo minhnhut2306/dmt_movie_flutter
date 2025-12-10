@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/app_assets.dart';
-import '../../../../core/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/router/route_names.dart';

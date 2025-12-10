@@ -325,6 +325,24 @@ class Responsive {
     );
   }
   
+  static double textBlur(BuildContext context) {
+    return responsive<double>(
+      context,
+      mobile: 15,
+      tablet: 18,
+      largeTablet: 20,
+    );
+  }
+  
+  static double shadowBlur(BuildContext context) {
+    return responsive<double>(
+      context,
+      mobile: 20,
+      tablet: 24,
+      largeTablet: 28,
+    );
+  }
+  
   static double shadowBlurRadius(BuildContext context) {
     return responsive<double>(
       context,
@@ -342,6 +360,22 @@ class Responsive {
       largeTablet: const Offset(0, 8),
     );
   }
+  
+  // ============= TEXT STYLING =============
+  
+  static double textHeight(BuildContext context, {double base = 1.4}) {
+    return responsive<double>(
+      context,
+      mobile: base,
+      tablet: base + 0.1,
+      largeTablet: base + 0.15,
+    );
+  }
+  
+  static double lineHeight14(BuildContext context) => textHeight(context, base: 1.4);
+  static double lineHeight15(BuildContext context) => textHeight(context, base: 1.5);
+  static double lineHeight12(BuildContext context) => textHeight(context, base: 1.2);
+  static double lineHeight13(BuildContext context) => textHeight(context, base: 1.3);
   
   // ============= COMMON SIZE HELPERS =============
   

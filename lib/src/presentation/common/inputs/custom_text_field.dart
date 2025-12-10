@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/constants/app_dimensions.dart';
 import '../../../core/app_text_styles.dart';
-
+import '../../../core/responsive.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
@@ -187,20 +187,20 @@ class _CustomTextFieldState extends State<CustomTextField> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline,
-                color: Color(0xFFFF3B30),
-                size: 16,
+                color: const Color(0xFFFF3B30),
+                size: Responsive.size16(context),
               ),
               SizedBox(width: AppDimensions.spacingXS + 2),
               Expanded(
                 child: Text(
                   _errorText!,
-                  style: const TextStyle(
-                    fontSize: AppTextStyles.fontSizeBase,
+                  style: TextStyle(
+                    fontSize: Responsive.captionFontSize(context),
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFFFF3B30),
-                    height: 1.4,
+                    color: const Color(0xFFFF3B30),
+                    height: Responsive.lineHeight14(context),
                   ),
                 ),
               ),

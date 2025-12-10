@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/app_text_styles.dart';
 import '../../../core/constants/app_dimensions.dart';
+import '../../../core/responsive.dart';
 
 class ProfileCard extends StatelessWidget {
   final String name;
@@ -18,26 +19,43 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final avatarSize = Responsive.avatarLarge(context);
+    
     return GestureDetector(
       onTap: onTap,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: AppDimensions.avatarL,
-            height: AppDimensions.avatarL,
+            width: avatarSize,
+            height: avatarSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
                 color: borderColor,
-                width: 3,
+                width: Responsive.responsive<double>(
+                  context,
+                  mobile: 3,
+                  tablet: 3.5,
+                  largeTablet: 4,
+                ),
               ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.15),
-                  blurRadius: 8,
+                  blurRadius: Responsive.responsive<double>(
+                    context,
+                    mobile: 8,
+                    tablet: 10,
+                    largeTablet: 12,
+                  ),
                   spreadRadius: 0,
-                  offset: const Offset(0, 3),
+                  offset: Offset(0, Responsive.responsive<double>(
+                    context,
+                    mobile: 3,
+                    tablet: 4,
+                    largeTablet: 5,
+                  )),
                 ),
               ],
             ),
@@ -45,16 +63,16 @@ class ProfileCard extends StatelessWidget {
               child: Image.asset(
                 imageUrl,
                 fit: BoxFit.cover,
-                width: 74,
-                height: 74,
+                width: avatarSize,
+                height: avatarSize,
               ),
             ),
           ),
-          SizedBox(height: AppDimensions.spacingS),
+          SizedBox(height: Responsive.spacingS(context)),
           Text(
             name,
-            style: const TextStyle(
-              fontSize: AppTextStyles.fontSizeL,
+            style: TextStyle(
+              fontSize: Responsive.bodyFontSize(context),
               fontWeight: FontWeight.w500,
             ),
           ),
