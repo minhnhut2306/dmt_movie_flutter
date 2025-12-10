@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/app_text_styles.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../../core/utils/validators.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
 import '../widgets/auth_widgets.dart';
@@ -92,7 +92,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 28,
+            fontSize: AppTextStyles.fontSize7XL,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
             shadows: [
@@ -106,7 +106,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
-            fontSize: 15,
+            fontSize: AppTextStyles.fontSizeXL,
             shadows: const [
               Shadow(color: Colors.black87, blurRadius: 15),
             ],
@@ -127,7 +127,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               l10n.email,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: AppTextStyles.fontSizeL,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -189,7 +189,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   text: l10n.termsAccept,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
-                    fontSize: 13,
+                    fontSize: AppTextStyles.fontSizeBase,
                     height: 1.4,
                   ),
                   children: [

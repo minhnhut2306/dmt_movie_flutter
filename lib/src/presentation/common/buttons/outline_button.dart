@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/app_text_styles.dart';
 import '../../../core/constants/app_dimensions.dart';
 
 class OutlineButton extends StatelessWidget {
@@ -25,7 +26,6 @@ class OutlineButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final effectiveBorderColor = borderColor ?? Colors.black;
     final effectiveTextColor = textColor ?? Colors.black;
 
@@ -63,9 +63,10 @@ class OutlineButton extends StatelessWidget {
                   ],
                   Text(
                     title,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: effectiveTextColor,
+                    style: TextStyle(
+                      fontSize: AppTextStyles.fontSizeM,
                       fontWeight: FontWeight.w500,
+                      color: effectiveTextColor,
                     ),
                   ),
                 ],

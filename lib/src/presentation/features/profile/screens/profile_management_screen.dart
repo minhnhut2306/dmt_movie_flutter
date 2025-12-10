@@ -1,8 +1,10 @@
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/app_assets.dart';
+import '../../../../core/app_text_styles.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/utils/extensions.dart';
+
 class ProfileManagementScreen extends StatelessWidget {
   const ProfileManagementScreen({super.key});
 
@@ -29,8 +31,8 @@ class ProfileManagementScreen extends StatelessWidget {
           l10n.selectProfile,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
+            fontSize: AppTextStyles.fontSize3XL,
             color: Colors.white,
-            fontSize: 18,
           ),
         ),
       ),
@@ -122,7 +124,7 @@ class _ProfileItem extends StatelessWidget {
                     name,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: AppTextStyles.fontSize2XL,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -132,7 +134,7 @@ class _ProfileItem extends StatelessWidget {
                     l10n.editProfile,
                     style: const TextStyle(
                       color: Colors.white54,
-                      fontSize: 14,
+                      fontSize: AppTextStyles.fontSizeL,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -196,7 +198,7 @@ class _AddProfileButton extends StatelessWidget {
                     l10n.addNewProfile,
                     style: const TextStyle(
                       color: Colors.white70,
-                      fontSize: 16,
+                      fontSize: AppTextStyles.fontSize2XL,
                       fontWeight: FontWeight.w400,
                     ),
                   ),

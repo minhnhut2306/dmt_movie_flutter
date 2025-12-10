@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../core/constants/app_dimensions.dart';
+import '../../../core/app_text_styles.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -68,7 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           Text(
             widget.labelText!,
             style: const TextStyle(
-              fontSize: 14,
+              fontSize: AppTextStyles.fontSizeL,
               fontWeight: FontWeight.w600,
               color: Color(0xFF333333),
             ),
@@ -87,63 +88,74 @@ class _CustomTextFieldState extends State<CustomTextField> {
             onChanged: widget.onChanged,
             onTap: widget.onTap,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: AppTextStyles.fontSize2XL,
               fontWeight: FontWeight.w400,
               color: Color(0xFF1a1a1a),
             ),
             decoration: InputDecoration(
               filled: true,
-              fillColor: hasError
-                  ? const Color(0xFFFFF5F5)
-                  : _isFocused
+              fillColor:
+                  hasError
+                      ? const Color(0xFFFFF5F5)
+                      : _isFocused
                       ? const Color(0xFFF8F9FA)
                       : Colors.white,
               hintText: widget.hintText,
               hintStyle: const TextStyle(
-                fontSize: 16,
+                fontSize: AppTextStyles.fontSize2XL,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF999999),
               ),
               counterText: '',
-              prefixIcon: widget.prefixIcon != null
-                  ? Padding(
-                      padding: EdgeInsets.only(
-                        left: AppDimensions.paddingM,
-                        right: AppDimensions.paddingS,
-                      ),
-                      child: Icon(widget.prefixIcon),
-                    )
-                  : null,
-              prefixIconConstraints: widget.prefixIcon != null
-                  ? const BoxConstraints(minWidth: 48, minHeight: 24)
-                  : BoxConstraints(minWidth: AppDimensions.paddingM),
-              suffixIcon: widget.isPassword
-                  ? IconButton(
-                      onPressed: _toggleObscure,
-                      icon: Icon(
-                        _isObscured
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined,
-                        color: const Color(0xFF666666),
-                        size: 22,
-                      ),
-                    )
-                  : null,
+              prefixIcon:
+                  widget.prefixIcon != null
+                      ? Padding(
+                        padding: EdgeInsets.only(
+                          left: AppDimensions.paddingM,
+                          right: AppDimensions.paddingS,
+                        ),
+                        child: Icon(widget.prefixIcon),
+                      )
+                      : null,
+              prefixIconConstraints:
+                  widget.prefixIcon != null
+                      ? const BoxConstraints(minWidth: 48, minHeight: 24)
+                      : BoxConstraints(minWidth: AppDimensions.paddingM),
+              suffixIcon:
+                  widget.isPassword
+                      ? IconButton(
+                        onPressed: _toggleObscure,
+                        icon: Icon(
+                          _isObscured
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: const Color(0xFF666666),
+                          size: 22,
+                        ),
+                      )
+                      : null,
               contentPadding: EdgeInsets.symmetric(
-                horizontal: widget.prefixIcon == null ? AppDimensions.paddingM : 0,
+                horizontal:
+                    widget.prefixIcon == null ? AppDimensions.paddingM : 0,
                 vertical: AppDimensions.paddingM,
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(AppDimensions.radiusM),
                 borderSide: BorderSide(
-                  color: hasError ? const Color(0xFFFF3B30) : const Color(0xFFE5E5E5),
+                  color:
+                      hasError
+                          ? const Color(0xFFFF3B30)
+                          : const Color(0xFFE5E5E5),
                   width: AppDimensions.inputBorderWidth,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(AppDimensions.radiusM),
                 borderSide: BorderSide(
-                  color: hasError ? const Color(0xFFFF3B30) : const Color(0xFF007AFF),
+                  color:
+                      hasError
+                          ? const Color(0xFFFF3B30)
+                          : const Color(0xFF007AFF),
                   width: AppDimensions.inputBorderWidthFocused,
                 ),
               ),
@@ -185,7 +197,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 child: Text(
                   _errorText!,
                   style: const TextStyle(
-                    fontSize: 13,
+                    fontSize: AppTextStyles.fontSizeBase,
                     fontWeight: FontWeight.w400,
                     color: Color(0xFFFF3B30),
                     height: 1.4,

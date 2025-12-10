@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/app_text_styles.dart';
 import '../../../core/constants/app_dimensions.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -52,9 +53,10 @@ class ProfileCard extends StatelessWidget {
           SizedBox(height: AppDimensions.spacingS),
           Text(
             name,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
+            style: const TextStyle(
+              fontSize: AppTextStyles.fontSizeL,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),

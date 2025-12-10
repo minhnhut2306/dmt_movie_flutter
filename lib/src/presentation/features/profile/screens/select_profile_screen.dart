@@ -1,7 +1,7 @@
-// select_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/app_assets.dart';
+import '../../../../core/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/router/route_names.dart';
@@ -38,7 +38,9 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
   void _handleAddProfile() {
     final l10n = AppLocalizations.of(context)!;
     if (_profiles.length >= AppConstants.maxProfiles) {
-      context.showErrorSnackBar(l10n.maxProfilesReached(AppConstants.maxProfiles));
+      context.showErrorSnackBar(
+        l10n.maxProfilesReached(AppConstants.maxProfiles),
+      );
       return;
     }
     context.showSnackBar(l10n.addNewProfile);
@@ -65,6 +67,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
           l10n.selectProfile,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
+            fontSize: AppTextStyles.fontSize3XL,
             color: Colors.black,
           ),
         ),
@@ -165,18 +168,14 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
               color: Colors.grey[300],
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.add,
-              color: Colors.black,
-              size: 40,
-            ),
+            child: const Icon(Icons.add, color: Colors.black, size: 40),
           ),
           SizedBox(height: AppDimensions.spacingS),
           Text(
             l10n.addProfile,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: AppTextStyles.fontSize2XL,
             ),
           ),
         ],

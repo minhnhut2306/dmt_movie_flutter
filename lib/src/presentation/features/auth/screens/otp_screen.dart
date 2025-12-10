@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/app_text_styles.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
@@ -96,7 +97,7 @@ class _OtpScreenState extends State<OtpScreen> {
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
-            fontSize: 28,
+            fontSize: AppTextStyles.fontSize7XL,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
             shadows: [
@@ -112,7 +113,7 @@ class _OtpScreenState extends State<OtpScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
-            fontSize: 15,
+            fontSize: AppTextStyles.fontSizeXL,
             shadows: const [
               Shadow(color: Colors.black87, blurRadius: 15),
             ],
@@ -133,7 +134,7 @@ class _OtpScreenState extends State<OtpScreen> {
               l10n.otpCode,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: AppTextStyles.fontSizeL,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -159,6 +160,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 l10n.resendOtp,
                 style: const TextStyle(
                   color: Colors.blue,
+                  fontSize: AppTextStyles.fontSizeL,
                   decoration: TextDecoration.underline,
                 ),
               ),
@@ -190,7 +192,7 @@ class _OtpScreenState extends State<OtpScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
-            fontSize: 13,
+            fontSize: AppTextStyles.fontSizeBase,
             decoration: TextDecoration.underline,
           ),
         ),

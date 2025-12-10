@@ -25,8 +25,8 @@ class AppColors {
   static const darkTextTertiary = Color(0xFF9CA3AF);
   
   static const border = Color(0xFFE5E7EB);
-  static const darkBorder = Color(0xFF374151);
   static const borderLight = Color(0xFFF3F4F6);
+  static const darkBorder = Color(0xFF374151);
   static const darkBorderLight = Color(0xFF4B5563);
   
   static const success = Color(0xFF10B981);

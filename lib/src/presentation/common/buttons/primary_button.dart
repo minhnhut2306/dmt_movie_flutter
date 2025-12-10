@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/app_text_styles.dart';
 import '../../../core/constants/app_dimensions.dart';
 
 class PrimaryButton extends StatelessWidget {
@@ -68,9 +69,10 @@ class PrimaryButton extends StatelessWidget {
                   ],
                   Text(
                     title.toUpperCase(),
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: textColor ?? Colors.white,
+                    style: TextStyle(
+                      fontSize: AppTextStyles.fontSizeL,
                       fontWeight: FontWeight.bold,
+                      color: textColor ?? Colors.white,
                     ),
                   ),
                 ],
