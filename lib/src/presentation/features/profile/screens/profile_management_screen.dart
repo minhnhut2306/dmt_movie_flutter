@@ -1,4 +1,4 @@
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/app_assets.dart';
 import '../../../../core/app_colors.dart';
@@ -10,13 +10,12 @@ class ProfileManagementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final isDark = context.isDarkMode;
     final maxWidth = Responsive.maxContentWidth(context);
     
     final profiles = [
-      {'name': l10n.user, 'color': Colors.teal, 'image': AppImages.thu},
-      {'name': l10n.kids, 'color': Colors.orange, 'image': AppImages.treen},
+      {'name': 'user'.tr(), 'color': Colors.teal, 'image': AppImages.thu},
+      {'name': 'kids'.tr(), 'color': Colors.orange, 'image': AppImages.treen},
     ];
 
     return Scaffold(
@@ -35,7 +34,7 @@ class ProfileManagementScreen extends StatelessWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          l10n.selectProfile,
+          'selectProfile'.tr(),
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: Responsive.headingFontSize(context),
@@ -61,7 +60,7 @@ class ProfileManagementScreen extends StatelessWidget {
                           isDark: isDark,
                           onTap: () {
                             context.showSnackBar(
-                              l10n.editProfileTitle(profile['name'] as String)
+                              'editProfileTitle'.tr(args: [profile['name'] as String])
                             );
                           },
                         ),
@@ -69,7 +68,7 @@ class ProfileManagementScreen extends StatelessWidget {
                       _AddProfileButton(
                         isDark: isDark,
                         onTap: () {
-                          context.showSnackBar(l10n.addNewProfile);
+                          context.showSnackBar('addNewProfile'.tr());
                         },
                       ),
                     ],
@@ -101,8 +100,7 @@ class _ProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    final isKidsProfile = name.toLowerCase() == l10n.kids.toLowerCase();
+    final isKidsProfile = name.toLowerCase() == 'kids'.tr().toLowerCase();
     final avatarSize = Responsive.avatarSmall(context);
 
     return Container(
@@ -159,7 +157,7 @@ class _ProfileItem extends StatelessWidget {
                 ),
                 if (!isKidsProfile)
                   Text(
-                    l10n.editProfile,
+                    'editProfile'.tr(),
                     style: TextStyle(
                       color: isDark ? Colors.white54 : AppColors.textTertiary,
                       fontSize: Responsive.captionFontSize(context),
@@ -192,7 +190,6 @@ class _AddProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final avatarSize = Responsive.avatarSmall(context);
 
     return Container(
@@ -241,7 +238,7 @@ class _AddProfileButton extends StatelessWidget {
                 SizedBox(width: Responsive.spacingS(context) + 4),
                 Expanded(
                   child: Text(
-                    l10n.addNewProfile,
+                    'addNewProfile'.tr(),
                     style: TextStyle(
                       color: isDark ? Colors.white70 : AppColors.textSecondary,
                       fontSize: Responsive.bodyFontSize(context),

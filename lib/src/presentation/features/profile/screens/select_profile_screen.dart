@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/app_assets.dart';
 import '../../../../core/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
@@ -22,28 +22,25 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final l10n = AppLocalizations.of(context)!;
     _profiles = [
-      {'name': l10n.user, 'color': Colors.teal, 'image': AppImages.thu},
-      {'name': l10n.kids, 'color': Colors.orange, 'image': AppImages.treen},
+      {'name': 'user'.tr(), 'color': Colors.teal, 'image': AppImages.thu},
+      {'name': 'kids'.tr(), 'color': Colors.orange, 'image': AppImages.treen},
     ];
   }
 
   void _handleProfileTap(int index) {
-    final l10n = AppLocalizations.of(context)!;
-    context.showSnackBar(l10n.profileSelected(_profiles[index]['name']));
+    context.showSnackBar('profileSelected'.tr(args: [_profiles[index]['name']]));
     context.pushReplacementNamed(RouteNames.main);
   }
 
   void _handleAddProfile() {
-    final l10n = AppLocalizations.of(context)!;
     if (_profiles.length >= AppConstants.maxProfiles) {
       context.showErrorSnackBar(
-        l10n.maxProfilesReached(AppConstants.maxProfiles),
+        'maxProfilesReached'.tr(args: [AppConstants.maxProfiles.toString()]),
       );
       return;
     }
-    context.showSnackBar(l10n.addNewProfile);
+    context.showSnackBar('addNewProfile'.tr());
   }
 
   void _handleManageProfiles() {
@@ -52,7 +49,6 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final isDark = context.isDarkMode;
     final maxWidth = Responsive.maxContentWidth(context);
 
@@ -71,7 +67,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          l10n.selectProfile,
+          'selectProfile'.tr(),
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: Responsive.headingFontSize(context),
@@ -89,12 +85,12 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: Responsive.horizontalPadding(context),
-                      child: _buildProfileGrid(l10n, isDark),
+                      child: _buildProfileGrid(isDark),
                     ),
                   ),
                 ),
               ),
-              _buildManageButton(l10n, isDark),
+              _buildManageButton(isDark),
               SizedBox(height: Responsive.spacingM(context)),
             ],
           ),
@@ -103,7 +99,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildProfileGrid(AppLocalizations l10n, bool isDark) {
+  Widget _buildProfileGrid(bool isDark) {
     final showAddButton = _profiles.length < AppConstants.maxProfiles;
     final totalItems = showAddButton ? _profiles.length + 1 : _profiles.length;
     final totalRows = (totalItems / 2).ceil();
@@ -111,12 +107,12 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalRows, (rowIndex) {
-        return _buildRow(rowIndex, showAddButton, l10n, isDark);
+        return _buildRow(rowIndex, showAddButton, isDark);
       }),
     );
   }
 
-  Widget _buildRow(int rowIndex, bool showAddButton, AppLocalizations l10n, bool isDark) {
+  Widget _buildRow(int rowIndex, bool showAddButton, bool isDark) {
     final startIndex = rowIndex * 2;
     final itemsInRow = <Widget>[];
 
@@ -130,7 +126,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         ),
       );
     } else if (showAddButton) {
-      itemsInRow.add(_buildAddButton(l10n, isDark));
+      itemsInRow.add(_buildAddButton(isDark));
     }
 
     final secondIndex = startIndex + 1;
@@ -144,7 +140,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         ),
       );
     } else if (secondIndex == _profiles.length && showAddButton) {
-      itemsInRow.add(_buildAddButton(l10n, isDark));
+      itemsInRow.add(_buildAddButton(isDark));
     }
 
     if (itemsInRow.isEmpty) return const SizedBox.shrink();
@@ -166,7 +162,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildAddButton(AppLocalizations l10n, bool isDark) {
+  Widget _buildAddButton(bool isDark) {
     final avatarSize = Responsive.avatarLarge(context);
     
     return GestureDetector(
@@ -188,7 +184,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
           ),
           SizedBox(height: Responsive.spacingS(context)),
           Text(
-            l10n.addProfile,
+            'addProfile'.tr(),
             style: TextStyle(
               color: isDark ? Colors.white70 : AppColors.textPrimary,
               fontSize: Responsive.bodyFontSize(context),
@@ -199,13 +195,13 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildManageButton(AppLocalizations l10n, bool isDark) {
+  Widget _buildManageButton(bool isDark) {
     return Padding(
       padding: Responsive.horizontalPadding(context).add(
         Responsive.verticalPadding(context),
       ),
       child: OutlineButton(
-        title: l10n.manageProfiles,
+        title: 'manageProfiles'.tr(),
         icon: Icons.manage_accounts,
         onPressed: _handleManageProfiles,
         borderColor: isDark ? AppColors.darkBorder : AppColors.border,

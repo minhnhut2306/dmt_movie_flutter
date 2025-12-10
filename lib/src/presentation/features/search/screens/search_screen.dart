@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/responsive.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -7,13 +7,12 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final maxWidth = Responsive.maxContentWidth(context);
     
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.searchTitle,
+          'searchTitle'.tr(),
           style: TextStyle(
             fontSize: Responsive.headingFontSize(context),
           ),
@@ -25,7 +24,7 @@ class SearchScreen extends StatelessWidget {
           width: maxWidth == double.infinity ? double.infinity : maxWidth,
           child: Center(
             child: Text(
-              l10n.searchContent,
+              'searchContent'.tr(),
               style: TextStyle(
                 fontSize: Responsive.bodyFontSize(context),
               ),

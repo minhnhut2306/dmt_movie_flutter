@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../data/services/update_service.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/utils/extensions.dart';
@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final maxWidth = Responsive.maxContentWidth(context);
 
     return Scaffold(
@@ -45,11 +44,11 @@ class _HomeScreenState extends State<HomeScreen> {
               }
 
               if (provider.hasError) {
-                return _buildError(provider.errorMessage!, l10n);
+                return _buildError(provider.errorMessage!);
               }
 
               if (provider.isEmpty) {
-                return _buildEmpty(l10n);
+                return _buildEmpty();
               }
 
               return MovieList(movies: provider.movies);
@@ -60,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildError(String message, AppLocalizations l10n) {
+  Widget _buildError(String message) {
     return Center(
       child: Padding(
         padding: Responsive.horizontalPadding(context),
@@ -85,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _loadMovies,
               icon: Icon(Icons.refresh, size: Responsive.size20(context)),
               label: Text(
-                l10n.retry,
+                'retry'.tr(),
                 style: TextStyle(fontSize: Responsive.bodyFontSize(context)),
               ),
               style: ElevatedButton.styleFrom(
@@ -101,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildEmpty(AppLocalizations l10n) {
+  Widget _buildEmpty() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(height: Responsive.spacingM(context)),
           Text(
-            l10n.noMovies,
+            'noMovies'.tr(),
             style: context.textTheme.bodyLarge?.copyWith(
               color: Colors.grey,
               fontSize: Responsive.bodyFontSize(context),

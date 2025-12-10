@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
@@ -10,19 +10,19 @@ import '../../../providers/settings_provider.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  void _showLogoutDialog(BuildContext context, AppLocalizations l10n) {    
+  void _showLogoutDialog(BuildContext context) {    
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text(
-          'Đăng xuất',
+          'logout'.tr(),
           style: TextStyle(
             fontSize: Responsive.headingFontSize(context),
             fontWeight: FontWeight.w600,
           ),
         ),
         content: Text(
-          'Bạn có chắc chắn muốn đăng xuất?',
+          'confirmLogout'.tr(),
           style: TextStyle(
             fontSize: Responsive.bodyFontSize(context),
           ),
@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.pop(dialogContext),
             child: Text(
-              l10n.cancel,
+              'cancel'.tr(),
               style: TextStyle(
                 fontSize: Responsive.bodyFontSize(context),
               ),
@@ -46,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
               backgroundColor: AppColors.error,
             ),
             child: Text(
-              'Đăng xuất',
+              'logout'.tr(),
               style: TextStyle(
                 fontSize: Responsive.bodyFontSize(context),
                 color: Colors.white,
@@ -60,7 +60,6 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final settings = context.watch<SettingsProvider>();
     final maxWidth = Responsive.maxContentWidth(context);
     final isDark = context.isDarkMode;
@@ -68,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.settingsTitle,
+          'settingsTitle'.tr(),
           style: TextStyle(fontSize: Responsive.headingFontSize(context)),
         ),
         toolbarHeight: Responsive.appBarHeight(context),
@@ -123,7 +122,7 @@ class SettingsScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  l10n.selectProfile,
+                                  'selectProfile'.tr(),
                                   style: TextStyle(
                                     fontSize: Responsive.bodyFontSize(context),
                                     fontWeight: FontWeight.w600,
@@ -132,7 +131,7 @@ class SettingsScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 2),
                                 Text(
-                                  'Quản lý profile của bạn',
+                                  'manageProfile'.tr(),
                                   style: TextStyle(
                                     fontSize: Responsive.captionFontSize(context),
                                     color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
@@ -156,11 +155,11 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(height: Responsive.spacingM(context)),
               
               _SettingsTile(
-                title: l10n.language,
+                title: 'language'.tr(),
                 child: DropdownButton<String>(
                   value: settings.locale?.languageCode ?? '',
                   hint: Text(
-                    l10n.languageSystem,
+                    'languageSystem'.tr(),
                     style: TextStyle(
                       fontSize: Responsive.bodyFontSize(context),
                     ),
@@ -169,7 +168,7 @@ class SettingsScreen extends StatelessWidget {
                     DropdownMenuItem(
                       value: 'en',
                       child: Text(
-                        l10n.languageEnglish,
+                        'languageEnglish'.tr(),
                         style: TextStyle(
                           fontSize: Responsive.bodyFontSize(context),
                         ),
@@ -178,7 +177,7 @@ class SettingsScreen extends StatelessWidget {
                     DropdownMenuItem(
                       value: 'vi',
                       child: Text(
-                        l10n.languageVietnamese,
+                        'languageVietnamese'.tr(),
                         style: TextStyle(
                           fontSize: Responsive.bodyFontSize(context),
                         ),
@@ -187,7 +186,7 @@ class SettingsScreen extends StatelessWidget {
                     DropdownMenuItem(
                       value: '',
                       child: Text(
-                        l10n.languageSystem,
+                        'languageSystem'.tr(),
                         style: TextStyle(
                           fontSize: Responsive.bodyFontSize(context),
                         ),
@@ -199,14 +198,14 @@ class SettingsScreen extends StatelessWidget {
               ),
               SizedBox(height: Responsive.spacingS(context)),
               _SettingsTile(
-                title: l10n.theme,
+                title: 'theme'.tr(),
                 child: DropdownButton<ThemeMode>(
                   value: settings.themeMode,
                   items: [
                     DropdownMenuItem(
                       value: ThemeMode.system,
                       child: Text(
-                        l10n.themeSystem,
+                        'themeSystem'.tr(),
                         style: TextStyle(
                           fontSize: Responsive.bodyFontSize(context),
                         ),
@@ -215,7 +214,7 @@ class SettingsScreen extends StatelessWidget {
                     DropdownMenuItem(
                       value: ThemeMode.light,
                       child: Text(
-                        l10n.themeLight,
+                        'themeLight'.tr(),
                         style: TextStyle(
                           fontSize: Responsive.bodyFontSize(context),
                         ),
@@ -224,7 +223,7 @@ class SettingsScreen extends StatelessWidget {
                     DropdownMenuItem(
                       value: ThemeMode.dark,
                       child: Text(
-                        l10n.themeDark,
+                        'themeDark'.tr(),
                         style: TextStyle(
                           fontSize: Responsive.bodyFontSize(context),
                         ),
@@ -251,7 +250,7 @@ class SettingsScreen extends StatelessWidget {
                   color: Colors.transparent,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(Responsive.radiusM(context)),
-                    onTap: () => _showLogoutDialog(context, l10n),
+                    onTap: () => _showLogoutDialog(context),
                     child: Padding(
                       padding: Responsive.cardPadding(context),
                       child: Row(
@@ -264,7 +263,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           SizedBox(width: Responsive.spacingS(context)),
                           Text(
-                            'Đăng xuất',
+                            'logout'.tr(),
                             style: TextStyle(
                               fontSize: Responsive.bodyFontSize(context),
                               fontWeight: FontWeight.w600,

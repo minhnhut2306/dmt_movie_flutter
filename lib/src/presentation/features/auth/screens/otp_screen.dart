@@ -1,6 +1,6 @@
 import 'package:dmt_movie_flutter/src/presentation/features/auth/widgets/auth_background.dart';
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/extensions.dart';
@@ -37,19 +37,16 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() => _isLoading = false);
 
     if (mounted) {
-      final l10n = AppLocalizations.of(context)!;
-      context.showSuccessSnackBar(l10n.otpVerified);
+      context.showSuccessSnackBar('otpVerified'.tr());
     }
   }
 
   void _handleResendOtp() {
-    final l10n = AppLocalizations.of(context)!;
-    context.showSnackBar(l10n.otpResent);
+    context.showSnackBar('otpResent'.tr());
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final isDark = context.isDarkMode;
     
     return Scaffold(
@@ -72,9 +69,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildHeader(l10n, isDark),
+                          _buildHeader(isDark),
                           AppDimensions.spacingXL.heightBox,
-                          _buildOtpForm(l10n, isDark),
+                          _buildOtpForm(isDark),
                           const Spacer(),
                         ],
                       ),
@@ -82,7 +79,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ),
-              _buildBackButton(l10n, isDark),
+              _buildBackButton(isDark),
             ],
           ),
         ),
@@ -90,11 +87,11 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
+  Widget _buildHeader(bool isDark) {
     return Column(
       children: [
         Text(
-          l10n.otpTitle,
+          'otpTitle'.tr(),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: isDark ? Colors.white : const Color(0xFF1A1A1A),
@@ -115,8 +112,8 @@ class _OtpScreenState extends State<OtpScreen> {
         AppDimensions.spacingS.heightBox,
         Text(
           widget.email != null
-              ? l10n.otpSubtitle(widget.email!)
-              : l10n.otpSubtitle('email của bạn'),
+              ? 'otpSubtitle'.tr(args: [widget.email!])
+              : 'otpSubtitle'.tr(args: ['email của bạn']),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: isDark 
@@ -132,7 +129,7 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildOtpForm(AppLocalizations l10n, bool isDark) {
+  Widget _buildOtpForm(bool isDark) {
     return AuthCard(
       child: Form(
         key: _formKey,
@@ -140,7 +137,7 @@ class _OtpScreenState extends State<OtpScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              l10n.otpCode,
+              'otpCode'.tr(),
               style: TextStyle(
                 color: isDark ? Colors.white : const Color(0xFF1A1A1A),
                 fontSize: 14,
@@ -150,14 +147,14 @@ class _OtpScreenState extends State<OtpScreen> {
             AppDimensions.spacingS.heightBox,
             CustomTextField(
               controller: _otpController,
-              hintText: l10n.otpHint,
+              hintText: 'otpHint'.tr(),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return l10n.otpRequired;
+                  return 'otpRequired'.tr();
                 }
                 if (value.length != AppConstants.otpLength) {
-                  return l10n.otpInvalid(AppConstants.otpLength);
+                  return 'otpInvalid'.tr(args: [AppConstants.otpLength.toString()]);
                 }
                 return null;
               },
@@ -171,7 +168,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
               child: Text(
-                l10n.resendOtp,
+                'resendOtp'.tr(),
                 style: TextStyle(
                   color: isDark ? Colors.blue.shade300 : AppColors.primary,
                   decoration: TextDecoration.underline,
@@ -182,7 +179,7 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             AppDimensions.spacingL.heightBox,
             PrimaryButton(
-              title: l10n.continueLabel,
+              title: 'continueLabel'.tr(),
               onPressed: _handleSubmit,
               isLoading: _isLoading,
             ),
@@ -192,7 +189,7 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildBackButton(AppLocalizations l10n, bool isDark) {
+  Widget _buildBackButton(bool isDark) {
     return GestureDetector(
       onTap: () => context.pop(),
       child: Container(
@@ -204,7 +201,7 @@ class _OtpScreenState extends State<OtpScreen> {
           AppDimensions.paddingL,
         ),
         child: Text(
-          l10n.backToLogin,
+          'backToLogin'.tr(),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: isDark 

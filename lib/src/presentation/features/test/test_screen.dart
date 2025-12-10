@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../core/responsive.dart';
 import '../../../core/utils/extensions.dart';
 import '../../common/inputs/custom_text_field.dart';
@@ -28,13 +28,12 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final maxWidth = Responsive.maxContentWidth(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.testScreen,
+          'testScreen'.tr(),
           style: TextStyle(
             fontSize: Responsive.headingFontSize(context),
           ),
@@ -50,16 +49,16 @@ class _TestScreenState extends State<TestScreen> {
               children: [
                 CustomTextField(
                   controller: _nameController,
-                  hintText: l10n.nameHint,
+                  hintText: 'nameHint'.tr(),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return l10n.nameRequired;
+                      return 'nameRequired'.tr();
                     }
                     if (value.length < 2) {
-                      return l10n.nameMinLength(2);
+                      return 'nameMinLength'.tr(args: ['2']);
                     }
                     if (value.length > 50) {
-                      return l10n.nameMaxLength(50);
+                      return 'nameMaxLength'.tr(args: ['50']);
                     }
                     return null;
                   },
@@ -67,14 +66,14 @@ class _TestScreenState extends State<TestScreen> {
                 SizedBox(height: Responsive.spacingM(context)),
                 CustomTextField(
                   controller: _emailController,
-                  hintText: l10n.emailHint,
+                  hintText: 'emailHint'.tr(),
                   prefixIcon: Icons.email_outlined,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return l10n.emailRequired;
+                      return 'emailRequired'.tr();
                     }
                     if (!value.isValidEmail) {
-                      return l10n.emailInvalid;
+                      return 'emailInvalid'.tr();
                     }
                     return null;
                   },
@@ -82,15 +81,15 @@ class _TestScreenState extends State<TestScreen> {
                 SizedBox(height: Responsive.spacingM(context)),
                 CustomTextField(
                   controller: _passwordController,
-                  hintText: l10n.passwordHint,
+                  hintText: 'passwordHint'.tr(),
                   prefixIcon: Icons.lock_outlined,
                   isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return l10n.passwordRequired;
+                      return 'passwordRequired'.tr();
                     }
                     if (value.length < 6) {
-                      return l10n.passwordMinLength(6);
+                      return 'passwordMinLength'.tr(args: ['6']);
                     }
                     return null;
                   },
@@ -98,21 +97,21 @@ class _TestScreenState extends State<TestScreen> {
                 SizedBox(height: Responsive.spacingM(context)),
                 CustomTextField(
                   controller: TextEditingController(),
-                  hintText: l10n.phoneHint,
+                  hintText: 'phoneHint'.tr(),
                   prefixIcon: Icons.phone_outlined,
-                  validator: (value) => l10n.phoneInvalid,
+                  validator: (value) => 'phoneInvalid'.tr(),
                 ),
                 SizedBox(height: Responsive.spacingXL(context)),
                 PrimaryButton(
-                  title: l10n.register,
+                  title: 'register'.tr(),
                   onPressed: () {
-                    context.showSuccessSnackBar(l10n.registerSuccess);
+                    context.showSuccessSnackBar('registerSuccess'.tr());
                   },
                   height: Responsive.buttonHeight(context),
                 ),
                 SizedBox(height: Responsive.spacingM(context)),
                 OutlineButton(
-                  title: l10n.cancel,
+                  title: 'cancel'.tr(),
                   onPressed: () => context.pop(),
                   height: Responsive.buttonHeight(context),
                 ),

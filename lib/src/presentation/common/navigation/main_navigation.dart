@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../core/app_colors.dart';
 import '../../../core/app_text_styles.dart';
 import '../../../core/app_assets.dart';
@@ -32,7 +32,6 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
@@ -47,7 +46,6 @@ class _MainNavigationState extends State<MainNavigation> {
         selectedIndex: _index,
         onTabTapped: _onTabTapped,
         isDark: isDark,
-        localizations: t,
       ),
     );
   }
@@ -57,13 +55,11 @@ class _CustomBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onTabTapped;
   final bool isDark;
-  final AppLocalizations localizations;
 
   const _CustomBottomNavBar({
     required this.selectedIndex,
     required this.onTabTapped,
     required this.isDark,
-    required this.localizations,
   });
 
   @override
@@ -128,7 +124,7 @@ class _CustomBottomNavBar extends StatelessWidget {
                 _NavItem(
                   icon: AppIcons.homeOutlined,
                   selectedIcon: AppIcons.homeFilled,
-                  label: localizations.tabHome,
+                  label: 'tabHome'.tr(),
                   isSelected: selectedIndex == 0,
                   onTap: () => onTabTapped(0),
                   isDark: isDark,
@@ -157,7 +153,7 @@ class _CustomBottomNavBar extends StatelessWidget {
                 _NavItem(
                   icon: AppIcons.settingsOutlined,
                   selectedIcon: AppIcons.settingsFilled,
-                  label: localizations.tabSettings,
+                  label: 'tabSettings'.tr(),
                   isSelected: selectedIndex == 2,
                   onTap: () => onTabTapped(2),
                   isDark: isDark,

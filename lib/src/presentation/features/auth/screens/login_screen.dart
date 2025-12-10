@@ -1,7 +1,7 @@
 import 'package:dmt_movie_flutter/src/presentation/features/auth/widgets/auth_background.dart';
 import 'package:dmt_movie_flutter/src/presentation/features/auth/widgets/auth_card.dart';
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
@@ -45,7 +45,6 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final isDark = context.isDarkMode;
     
     return Scaffold(
@@ -68,9 +67,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildHeader(l10n, isDark),
+                          _buildHeader(isDark),
                           AppDimensions.spacingXL.heightBox,
-                          _buildLoginForm(l10n, isDark),
+                          _buildLoginForm(isDark),
                           const Spacer(),
                         ],
                       ),
@@ -78,7 +77,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   ),
                 ),
               ),
-              _buildTermsCheckbox(l10n, isDark),
+              _buildTermsCheckbox(isDark),
             ],
           ),
         ),
@@ -86,11 +85,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
+  Widget _buildHeader(bool isDark) {
     return Column(
       children: [
         Text(
-          l10n.loginTitle,
+          'loginTitle'.tr(),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: isDark ? Colors.white : const Color(0xFF1A1A1A),
@@ -110,7 +109,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         ),
         AppDimensions.spacingS.heightBox,
         Text(
-          l10n.loginSubtitle,
+          'loginSubtitle'.tr(),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: isDark 
@@ -126,7 +125,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildLoginForm(AppLocalizations l10n, bool isDark) {
+  Widget _buildLoginForm(bool isDark) {
     return AuthCard(
       child: Form(
         key: _formKey,
@@ -134,7 +133,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              l10n.email,
+              'email'.tr(),
               style: TextStyle(
                 color: isDark ? Colors.white : const Color(0xFF1A1A1A),
                 fontSize: 14,
@@ -144,21 +143,21 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
             AppDimensions.spacingS.heightBox,
             CustomTextField(
               controller: _emailController,
-              hintText: l10n.emailHint,
+              hintText: 'emailHint'.tr(),
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return l10n.emailRequired;
+                  return 'emailRequired'.tr();
                 }
                 if (!value.isValidEmail) {
-                  return l10n.emailInvalid;
+                  return 'emailInvalid'.tr();
                 }
                 return null;
               },
             ),
             AppDimensions.spacingL.heightBox,
             PrimaryButton(
-              title: l10n.continueLabel,
+              title: 'continueLabel'.tr(),
               onPressed: _handleSubmit,
               isLoading: _isLoading,
             ),
@@ -168,7 +167,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildTermsCheckbox(AppLocalizations l10n, bool isDark) {
+  Widget _buildTermsCheckbox(bool isDark) {
     return Container(
       color: isDark ? Colors.black : const Color(0xFFF8F9FA),
       padding: EdgeInsets.fromLTRB(
@@ -204,7 +203,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               padding: const EdgeInsets.only(top: 12),
               child: Text.rich(
                 TextSpan(
-                  text: l10n.termsAccept,
+                  text: 'termsAccept'.tr(),
                   style: TextStyle(
                     color: isDark 
                       ? Colors.white.withOpacity(0.8)
@@ -214,7 +213,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   ),
                   children: [
                     TextSpan(
-                      text: l10n.termsText,
+                      text: 'termsText'.tr(),
                       style: TextStyle(
                         color: isDark ? Colors.orange : AppColors.primary,
                         decoration: TextDecoration.underline,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../data/models/movie.dart';
 import '../../../core/router/route_names.dart';
 import '../../../core/responsive.dart';
@@ -12,8 +12,6 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
     return ListTile(
       contentPadding: EdgeInsets.symmetric(
         horizontal: Responsive.spacingM(context),
@@ -27,7 +25,7 @@ class MovieCard extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        l10n.seeDetails,
+        'seeDetails'.tr(),
         style: TextStyle(
           fontSize: Responsive.captionFontSize(context),
         ),
