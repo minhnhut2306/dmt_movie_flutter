@@ -55,11 +55,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               child: Center(
                 child: Container(
                   width: maxWidth == double.infinity ? double.infinity : maxWidth,
-                  child: Column(
-                    children: [
-                      const AuthBackground(),
-                      Expanded(
-                        child: Container(
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: [
+                        const AuthBackground(),
+                        Container(
                           color: isDark ? Colors.black : Colors.white,
                           child: Transform.translate(
                             offset: Offset(0, Responsive.authHeaderOffset(context)),
@@ -71,15 +71,15 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                                   _buildHeader(l10n, isDark),
                                   SizedBox(height: Responsive.spacingXL(context)),
                                   _buildLoginForm(l10n, isDark),
-                                  const Spacer(),
+                                  SizedBox(height: Responsive.spacing3XL(context)),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      _buildTermsCheckbox(l10n, isDark),
-                    ],
+                        _buildTermsCheckbox(l10n, isDark),
+                      ],
+                    ),
                   ),
                 ),
               ),

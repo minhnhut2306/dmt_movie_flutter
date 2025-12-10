@@ -62,11 +62,11 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Center(
                 child: Container(
                   width: maxWidth == double.infinity ? double.infinity : maxWidth,
-                  child: Column(
-                    children: [
-                      const AuthBackground(),
-                      Expanded(
-                        child: Container(
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: [
+                        const AuthBackground(),
+                        Container(
                           color: isDark ? Colors.black : Colors.white,
                           child: Transform.translate(
                             offset: Offset(0, Responsive.authHeaderOffset(context)),
@@ -78,15 +78,15 @@ class _OtpScreenState extends State<OtpScreen> {
                                   _buildHeader(l10n, isDark),
                                   SizedBox(height: Responsive.spacingXL(context)),
                                   _buildOtpForm(l10n, isDark),
-                                  const Spacer(),
+                                  SizedBox(height: Responsive.spacing3XL(context)),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      _buildBackButton(l10n, isDark),
-                    ],
+                        _buildBackButton(l10n, isDark),
+                      ],
+                    ),
                   ),
                 ),
               ),

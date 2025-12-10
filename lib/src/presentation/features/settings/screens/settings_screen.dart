@@ -2,16 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/responsive.dart';
+import '../../../../core/router/route_names.dart';
+import '../../../../core/utils/extensions.dart';
+import '../../../../core/app_colors.dart';
 import '../../../providers/settings_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
+
+  void _showLogoutDialog(BuildContext context, AppLocalizations l10n) {
+    final isDark = context.isDarkMode;
+    
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(
+          'Đăng xuất',
+          style: TextStyle(
+            fontSize: Responsive.headingFontSize(context),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: Text(
+          'Bạn có chắc chắn muốn đăng xuất?',
+          style: TextStyle(
+            fontSize: Responsive.bodyFontSize(context),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              l10n.cancel,
+              style: TextStyle(
+                fontSize: Responsive.bodyFontSize(context),
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              context.pushNamedAndRemoveUntil(RouteNames.login);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.error,
+            ),
+            child: Text(
+              'Đăng xuất',
+              style: TextStyle(
+                fontSize: Responsive.bodyFontSize(context),
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final settings = context.watch<SettingsProvider>();
     final maxWidth = Responsive.maxContentWidth(context);
+    final isDark = context.isDarkMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -103,8 +157,50 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                  onChanged:
-                      (m) => settings.setThemeMode(m ?? ThemeMode.system),
+                  onChanged: (m) => settings.setThemeMode(m ?? ThemeMode.system),
+                ),
+              ),
+              
+              SizedBox(height: Responsive.spacingXL(context)),
+              
+              // Nút đăng xuất
+              Container(
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.cardDark : AppColors.cardLight,
+                  borderRadius: BorderRadius.circular(Responsive.radiusM(context)),
+                  border: Border.all(
+                    color: AppColors.error.withOpacity(0.3),
+                    width: 1,
+                  ),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(Responsive.radiusM(context)),
+                    onTap: () => _showLogoutDialog(context, l10n),
+                    child: Padding(
+                      padding: Responsive.cardPadding(context),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.logout,
+                            color: AppColors.error,
+                            size: Responsive.size20(context),
+                          ),
+                          SizedBox(width: Responsive.spacingS(context)),
+                          Text(
+                            'Đăng xuất',
+                            style: TextStyle(
+                              fontSize: Responsive.bodyFontSize(context),
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.error,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
