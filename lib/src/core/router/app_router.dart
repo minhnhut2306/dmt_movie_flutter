@@ -11,7 +11,7 @@ import 'route_names.dart';
 class AppRouter {
   AppRouter._();
 
-  static const String initialRoute = RouteNames.login;
+  static const String initialRoute = RouteNames.main;
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

@@ -15,6 +15,7 @@ class AppDimensions {
   static const double paddingL = 24.0;
   static const double paddingXL = 32.0;
 
+  static const double radiusXS = 4.0;
   static const double radiusS = 8.0;
   static const double radiusM = 12.0;
   static const double radiusL = 16.0;
