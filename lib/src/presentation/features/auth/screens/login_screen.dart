@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
+import '../../../../core/app_colors.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
@@ -41,9 +42,10 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isDark = context.isDarkMode;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: isDark ? AppColors.authBackgroundDark : AppColors.authBackgroundLight,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = Responsive.maxContentWidth(context);
@@ -53,29 +55,23 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Center(
                 child: Container(
-                  width:
-                      maxWidth == double.infinity ? double.infinity : maxWidth,
+                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
                   child: Column(
                     children: [
-                      const AuthBackground(),
+                      AuthBackground(isDark: isDark),
                       Expanded(
                         child: Container(
-                          color: Colors.black,
+                          color: isDark ? AppColors.authBackgroundDark : AppColors.authBackgroundLight,
                           child: Transform.translate(
-                            offset: Offset(
-                              0,
-                              Responsive.authHeaderOffset(context),
-                            ),
+                            offset: Offset(0, Responsive.authHeaderOffset(context)),
                             child: Padding(
                               padding: Responsive.horizontalPadding(context),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  _buildHeader(l10n),
-                                  SizedBox(
-                                    height: Responsive.spacingXL(context),
-                                  ),
-                                  _buildLoginForm(l10n),
+                                  _buildHeader(l10n, isDark),
+                                  SizedBox(height: Responsive.spacingXL(context)),
+                                  _buildLoginForm(l10n, isDark),
                                   const Spacer(),
                                 ],
                               ),
@@ -83,7 +79,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                           ),
                         ),
                       ),
-                      _buildTermsCheckbox(l10n),
+                      _buildTermsCheckbox(l10n, isDark),
                     ],
                   ),
                 ),
@@ -95,24 +91,24 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n) {
+  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
     return Column(
       children: [
         Text(
           l10n.loginTitle,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white,
+            color: isDark ? Colors.white : AppColors.textPrimary,
             fontSize: Responsive.titleFontSize(context),
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
             height: Responsive.lineHeight12(context),
-            shadows: [
+            shadows: isDark ? [
               Shadow(
                 color: Colors.black87,
                 blurRadius: Responsive.shadowBlur(context),
               ),
-            ],
+            ] : [],
           ),
         ),
         SizedBox(height: Responsive.spacingS(context)),
@@ -120,23 +116,26 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           l10n.loginSubtitle,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
+            color: isDark 
+              ? Colors.white.withOpacity(0.8)
+              : AppColors.textSecondary,
             fontSize: Responsive.bodyFontSize(context),
             height: Responsive.lineHeight14(context),
-            shadows: [
+            shadows: isDark ? [
               Shadow(
                 color: Colors.black87,
                 blurRadius: Responsive.textBlur(context),
               ),
-            ],
+            ] : [],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildLoginForm(AppLocalizations l10n) {
+  Widget _buildLoginForm(AppLocalizations l10n, bool isDark) {
     return AuthCard(
+      isDark: isDark,
       child: Form(
         key: _formKey,
         child: Column(
@@ -145,7 +144,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
             Text(
               l10n.email,
               style: TextStyle(
-                color: Colors.white,
+                color: isDark ? Colors.white : AppColors.textPrimary,
                 fontSize: Responsive.bodyFontSize(context),
                 fontWeight: FontWeight.w600,
               ),
@@ -178,7 +177,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildTermsCheckbox(AppLocalizations l10n) {
+  Widget _buildTermsCheckbox(AppLocalizations l10n, bool isDark) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         Responsive.spacingL(context),
@@ -195,10 +194,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               value: _isChecked,
               onChanged: (v) => setState(() => _isChecked = v!),
               activeColor: Colors.orange,
+              checkColor: Colors.white,
+              side: BorderSide(
+                color: isDark ? Colors.white54 : AppColors.border,
+                width: 2,
+              ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                  Responsive.radiusXS(context),
-                ),
+                borderRadius: BorderRadius.circular(Responsive.radiusXS(context)),
               ),
             ),
           ),
@@ -210,7 +212,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 TextSpan(
                   text: l10n.termsAccept,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.8),
+                    color: isDark 
+                      ? Colors.white.withOpacity(0.8)
+                      : AppColors.textSecondary,
                     fontSize: Responsive.captionFontSize(context),
                     height: Responsive.lineHeight14(context),
                   ),

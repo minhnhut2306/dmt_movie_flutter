@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import '../../../../core/app_assets.dart';
+import '../../../../core/app_colors.dart';
+import '../../../../core/responsive.dart';
 
 class AuthBackground extends StatelessWidget {
-  const AuthBackground({super.key});
+  final bool isDark;
+  
+  const AuthBackground({super.key, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final backgroundHeight = Responsive.authBackgroundHeight(context);
 
     return SizedBox(
-      height: screenHeight * 0.48,
+      height: backgroundHeight,
       child: Stack(
         children: [
           Container(
@@ -25,12 +29,18 @@ class AuthBackground extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
+                colors: isDark ? [
                   Colors.black.withOpacity(0.0),
                   Colors.black.withOpacity(0.3),
                   Colors.black.withOpacity(0.6),
                   Colors.black.withOpacity(0.9),
-                  Colors.black,
+                  AppColors.authBackgroundDark,
+                ] : [
+                  AppColors.authBackgroundLight.withOpacity(0.0),
+                  AppColors.authBackgroundLight.withOpacity(0.3),
+                  AppColors.authBackgroundLight.withOpacity(0.6),
+                  AppColors.authBackgroundLight.withOpacity(0.9),
+                  AppColors.authBackgroundLight,
                 ],
                 stops: const [0.0, 0.5, 0.7, 0.85, 1.0],
               ),
@@ -38,6 +48,44 @@ class AuthBackground extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AuthCard extends StatelessWidget {
+  final Widget child;
+  final bool isDark;
+
+  const AuthCard({
+    super.key, 
+    required this.child,
+    required this.isDark,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: Responsive.cardPadding(context),
+      decoration: BoxDecoration(
+        color: isDark 
+          ? Colors.white.withOpacity(0.08)
+          : Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(Responsive.radiusXL(context)),
+        border: Border.all(
+          color: isDark 
+            ? Colors.white.withOpacity(0.1)
+            : AppColors.border.withOpacity(0.3),
+          width: 1,
+        ),
+        boxShadow: isDark ? [] : [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: child,
     );
   }
 }

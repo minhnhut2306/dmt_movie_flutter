@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/app_assets.dart';
+import '../../../../core/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/router/route_names.dart';
@@ -52,18 +53,19 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isDark = context.isDarkMode;
     final maxWidth = Responsive.maxContentWidth(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: isDark ? AppColors.profileBackgroundDark : AppColors.profileBackgroundLight,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: isDark ? AppColors.darkBackgroundLight : AppColors.backgroundLight,
         toolbarHeight: Responsive.appBarHeight(context),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: isDark ? Colors.white : AppColors.textPrimary,
             size: Responsive.size24(context),
           ),
           onPressed: () => context.pop(),
@@ -73,7 +75,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: Responsive.headingFontSize(context),
-            color: Colors.black,
+            color: isDark ? Colors.white : AppColors.textPrimary,
           ),
         ),
       ),
@@ -87,12 +89,12 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: Responsive.horizontalPadding(context),
-                      child: _buildProfileGrid(l10n),
+                      child: _buildProfileGrid(l10n, isDark),
                     ),
                   ),
                 ),
               ),
-              _buildManageButton(l10n),
+              _buildManageButton(l10n, isDark),
               SizedBox(height: Responsive.spacingM(context)),
             ],
           ),
@@ -101,7 +103,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildProfileGrid(AppLocalizations l10n) {
+  Widget _buildProfileGrid(AppLocalizations l10n, bool isDark) {
     final showAddButton = _profiles.length < AppConstants.maxProfiles;
     final totalItems = showAddButton ? _profiles.length + 1 : _profiles.length;
     final totalRows = (totalItems / 2).ceil();
@@ -109,12 +111,12 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalRows, (rowIndex) {
-        return _buildRow(rowIndex, showAddButton, l10n);
+        return _buildRow(rowIndex, showAddButton, l10n, isDark);
       }),
     );
   }
 
-  Widget _buildRow(int rowIndex, bool showAddButton, AppLocalizations l10n) {
+  Widget _buildRow(int rowIndex, bool showAddButton, AppLocalizations l10n, bool isDark) {
     final startIndex = rowIndex * 2;
     final itemsInRow = <Widget>[];
 
@@ -128,7 +130,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         ),
       );
     } else if (showAddButton) {
-      itemsInRow.add(_buildAddButton(l10n));
+      itemsInRow.add(_buildAddButton(l10n, isDark));
     }
 
     final secondIndex = startIndex + 1;
@@ -142,7 +144,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         ),
       );
     } else if (secondIndex == _profiles.length && showAddButton) {
-      itemsInRow.add(_buildAddButton(l10n));
+      itemsInRow.add(_buildAddButton(l10n, isDark));
     }
 
     if (itemsInRow.isEmpty) return const SizedBox.shrink();
@@ -164,7 +166,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildAddButton(AppLocalizations l10n) {
+  Widget _buildAddButton(AppLocalizations l10n, bool isDark) {
     final avatarSize = Responsive.avatarLarge(context);
     
     return GestureDetector(
@@ -175,12 +177,12 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
             width: avatarSize,
             height: avatarSize,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: isDark ? AppColors.darkSurfaceVariant : AppColors.surfaceVariant,
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.add,
-              color: Colors.black,
+              color: isDark ? Colors.white70 : AppColors.textSecondary,
               size: Responsive.size40(context),
             ),
           ),
@@ -188,7 +190,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
           Text(
             l10n.addProfile,
             style: TextStyle(
-              color: Colors.black,
+              color: isDark ? Colors.white70 : AppColors.textPrimary,
               fontSize: Responsive.bodyFontSize(context),
             ),
           ),
@@ -197,7 +199,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildManageButton(AppLocalizations l10n) {
+  Widget _buildManageButton(AppLocalizations l10n, bool isDark) {
     return Padding(
       padding: Responsive.horizontalPadding(context).add(
         Responsive.verticalPadding(context),
@@ -206,8 +208,8 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         title: l10n.manageProfiles,
         icon: Icons.manage_accounts,
         onPressed: _handleManageProfiles,
-        borderColor: Colors.grey[300],
-        textColor: Colors.black,
+        borderColor: isDark ? AppColors.darkBorder : AppColors.border,
+        textColor: isDark ? Colors.white : AppColors.textPrimary,
         width: double.infinity,
         height: Responsive.buttonHeight(context),
       ),
