@@ -48,7 +48,7 @@
     }
   },
   
-  "continue": "Continue",
+  "continueLabel": "Continue",
   "cancel": "Cancel",
   "save": "Save",
   "delete": "Delete",
@@ -172,5 +172,18 @@
         "type": "String"
       }
     }
-  }
+  },
+  
+  "searchContent": "Search content goes here",
+  "testScreen": "Test CustomTextField",
+  "register": "Register",
+  "editProfileTitle": "Edit {name}",
+  "@editProfileTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "unableToLoadMovies": "Unable to load movies"
 }

@@ -58,18 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.error_outline, size: 64, color: Colors.red),
+          Icon(Icons.error_outline, size: 64, color: context.colorScheme.error),
           const SizedBox(height: 16),
-          Text(
-            message,
-            textAlign: TextAlign.center,
-            style: context.textTheme.bodyLarge,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Text(
+              message,
+              textAlign: TextAlign.center,
+              style: context.textTheme.bodyLarge,
+            ),
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
             onPressed: _loadMovies,
             icon: const Icon(Icons.refresh),
-            label: const Text('Thử lại'),
+            label: Text(l10n.retry),
           ),
         ],
       ),

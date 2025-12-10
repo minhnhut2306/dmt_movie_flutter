@@ -1,4 +1,6 @@
+// select_profile_screen.dart
 import 'package:flutter/material.dart';
+import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/app_assets.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_dimensions.dart';
@@ -15,22 +17,31 @@ class SelectProfileScreen extends StatefulWidget {
 }
 
 class _SelectProfileScreenState extends State<SelectProfileScreen> {
-  final List<Map<String, dynamic>> _profiles = [
-    {'name': 'Người dùng', 'color': Colors.teal, 'image': AppImages.thu},
-    {'name': 'Trẻ em', 'color': Colors.orange, 'image': AppImages.treen},
-  ];
+  List<Map<String, dynamic>> _profiles = [];
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final l10n = AppLocalizations.of(context)!;
+    _profiles = [
+      {'name': l10n.user, 'color': Colors.teal, 'image': AppImages.thu},
+      {'name': l10n.kids, 'color': Colors.orange, 'image': AppImages.treen},
+    ];
+  }
 
   void _handleProfileTap(int index) {
-    context.showSnackBar('Đã chọn ${_profiles[index]['name']}');
+    final l10n = AppLocalizations.of(context)!;
+    context.showSnackBar(l10n.profileSelected(_profiles[index]['name']));
     context.pushReplacementNamed(RouteNames.main);
   }
 
   void _handleAddProfile() {
+    final l10n = AppLocalizations.of(context)!;
     if (_profiles.length >= AppConstants.maxProfiles) {
-      context.showErrorSnackBar('Đã đạt giới hạn ${AppConstants.maxProfiles} hồ sơ');
+      context.showErrorSnackBar(l10n.maxProfilesReached(AppConstants.maxProfiles));
       return;
     }
-    context.showSnackBar('Thêm hồ sơ mới');
+    context.showSnackBar(l10n.addNewProfile);
   }
 
   void _handleManageProfiles() {
@@ -39,6 +50,8 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -48,9 +61,9 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: const Text(
-          'Ai đang xem?',
-          style: TextStyle(
+        title: Text(
+          l10n.selectProfile,
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.black,
           ),
@@ -65,19 +78,19 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: AppDimensions.paddingXL,
                   ),
-                  child: _buildProfileGrid(),
+                  child: _buildProfileGrid(l10n),
                 ),
               ),
             ),
           ),
-          _buildManageButton(),
+          _buildManageButton(l10n),
           SizedBox(height: AppDimensions.spacingM),
         ],
       ),
     );
   }
 
-  Widget _buildProfileGrid() {
+  Widget _buildProfileGrid(AppLocalizations l10n) {
     final showAddButton = _profiles.length < AppConstants.maxProfiles;
     final totalItems = showAddButton ? _profiles.length + 1 : _profiles.length;
     final totalRows = (totalItems / 2).ceil();
@@ -85,12 +98,12 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(totalRows, (rowIndex) {
-        return _buildRow(rowIndex, showAddButton);
+        return _buildRow(rowIndex, showAddButton, l10n);
       }),
     );
   }
 
-  Widget _buildRow(int rowIndex, bool showAddButton) {
+  Widget _buildRow(int rowIndex, bool showAddButton, AppLocalizations l10n) {
     final startIndex = rowIndex * 2;
     final itemsInRow = <Widget>[];
 
@@ -104,7 +117,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         ),
       );
     } else if (showAddButton) {
-      itemsInRow.add(_buildAddButton());
+      itemsInRow.add(_buildAddButton(l10n));
     }
 
     final secondIndex = startIndex + 1;
@@ -118,7 +131,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         ),
       );
     } else if (secondIndex == _profiles.length && showAddButton) {
-      itemsInRow.add(_buildAddButton());
+      itemsInRow.add(_buildAddButton(l10n));
     }
 
     if (itemsInRow.isEmpty) return const SizedBox.shrink();
@@ -140,7 +153,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildAddButton() {
+  Widget _buildAddButton(AppLocalizations l10n) {
     return GestureDetector(
       onTap: _handleAddProfile,
       child: Column(
@@ -159,9 +172,9 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
             ),
           ),
           SizedBox(height: AppDimensions.spacingS),
-          const Text(
-            'Thêm',
-            style: TextStyle(
+          Text(
+            l10n.addProfile,
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 16,
             ),
@@ -171,19 +184,227 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     );
   }
 
-  Widget _buildManageButton() {
+  Widget _buildManageButton(AppLocalizations l10n) {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: AppDimensions.paddingXL,
         vertical: AppDimensions.paddingXL,
       ),
       child: OutlineButton(
-        title: 'Quản lý hồ sơ',
+        title: l10n.manageProfiles,
         icon: Icons.manage_accounts,
         onPressed: _handleManageProfiles,
         borderColor: Colors.grey[300],
         textColor: Colors.black,
         width: double.infinity,
+      ),
+    );
+  }
+}
+
+// profile_management_screen.dart
+class ProfileManagementScreen extends StatelessWidget {
+  const ProfileManagementScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
+    final profiles = [
+      {'name': l10n.user, 'color': Colors.teal, 'image': AppImages.thu},
+      {'name': l10n.kids, 'color': Colors.orange, 'image': AppImages.treen},
+    ];
+
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.grey[900],
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => context.pop(),
+        ),
+        title: Text(
+          l10n.selectProfile,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontSize: 18,
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(AppDimensions.paddingL),
+              child: Column(
+                children: [
+                  ...profiles.map(
+                    (profile) => _ProfileItem(
+                      name: profile['name'] as String,
+                      color: profile['color'] as Color,
+                      image: profile['image'] as String,
+                      onTap: () {
+                        context.showSnackBar(
+                          l10n.editProfileTitle(profile['name'] as String)
+                        );
+                      },
+                    ),
+                  ),
+                  _AddProfileButton(
+                    onTap: () {
+                      context.showSnackBar(l10n.addNewProfile);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ProfileItem extends StatelessWidget {
+  final String name;
+  final Color color;
+  final String image;
+  final VoidCallback onTap;
+
+  const _ProfileItem({
+    required this.name,
+    required this.color,
+    required this.image,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final isKidsProfile = name.toLowerCase() == l10n.kids.toLowerCase();
+
+    return Container(
+      margin: EdgeInsets.only(bottom: AppDimensions.spacingM),
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppDimensions.paddingM,
+              vertical: AppDimensions.paddingS + 4,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: AppDimensions.avatarS,
+                  height: AppDimensions.avatarS,
+                  decoration: BoxDecoration(
+                    color: color,
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage(image),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(width: AppDimensions.spacingS + 4),
+                Expanded(
+                  child: Text(
+                    name,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                if (!isKidsProfile)
+                  Text(
+                    l10n.editProfile,
+                    style: const TextStyle(
+                      color: Colors.white54,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                SizedBox(width: AppDimensions.spacingS),
+                const Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white54,
+                  size: 16,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AddProfileButton extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _AddProfileButton({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[850],
+        borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(AppDimensions.radiusM),
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppDimensions.paddingM,
+              vertical: AppDimensions.paddingS + 4,
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: AppDimensions.avatarS,
+                  height: AppDimensions.avatarS,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[700],
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                SizedBox(width: AppDimensions.spacingS + 4),
+                Expanded(
+                  child: Text(
+                    l10n.addNewProfile,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

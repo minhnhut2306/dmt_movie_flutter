@@ -71,7 +71,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get continue => 'Tiếp tục';
+  String get continueLabel => 'Tiếp tục';
 
   @override
   String get cancel => 'Huỷ';
@@ -241,7 +241,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get termsAccept => 'Tôi đã đọc dòng ';
 
   @override
-  String get termsText => 'Không thêm cũng được, nhưng thêm vô nhìn cho sang chảnh hơn, hiểu hông mấy má 😏';
+  String get termsText =>
+      'Không thêm cũng được, nhưng thêm vô nhìn cho sang chảnh hơn, hiểu hông mấy má 😏';
 
   @override
   String get registerSuccess => 'Đăng ký thành công';
@@ -256,4 +257,21 @@ class AppLocalizationsVi extends AppLocalizations {
   String movieId(String id) {
     return 'ID Phim: $id';
   }
+
+  @override
+  String get searchContent => 'Nội dung tìm kiếm ở đây';
+
+  @override
+  String get testScreen => 'Test CustomTextField';
+
+  @override
+  String get register => 'Đăng ký';
+
+  @override
+  String editProfileTitle(String name) {
+    return 'Sửa $name';
+  }
+
+  @override
+  String get unableToLoadMovies => 'Không thể tải danh sách phim';
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/extensions.dart';
-import '../../../../core/utils/validators.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
 import '../widgets/auth_background.dart';
@@ -36,16 +36,20 @@ class _OtpScreenState extends State<OtpScreen> {
     setState(() => _isLoading = false);
 
     if (mounted) {
-      context.showSuccessSnackBar('Xác thực thành công');
+      final l10n = AppLocalizations.of(context)!;
+      context.showSuccessSnackBar(l10n.otpVerified);
     }
   }
 
   void _handleResendOtp() {
-    context.showSnackBar('Mã OTP đã được gửi lại');
+    final l10n = AppLocalizations.of(context)!;
+    context.showSnackBar(l10n.otpResent);
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -66,9 +70,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildHeader(),
+                          _buildHeader(l10n),
                           AppDimensions.spacingXL.heightBox,
-                          _buildOtpForm(),
+                          _buildOtpForm(l10n),
                           const Spacer(),
                         ],
                       ),
@@ -76,7 +80,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ),
-              _buildBackButton(),
+              _buildBackButton(l10n),
             ],
           ),
         ),
@@ -84,13 +88,13 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppLocalizations l10n) {
     return Column(
       children: [
-        const Text(
-          'Nhập mã OTP',
+        Text(
+          l10n.otpTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -103,8 +107,8 @@ class _OtpScreenState extends State<OtpScreen> {
         AppDimensions.spacingS.heightBox,
         Text(
           widget.email != null
-              ? 'Nhập mã OTP đã được gửi đến ${widget.email}'
-              : 'Nhập mã OTP đã được gửi đến email của bạn',
+              ? l10n.otpSubtitle(widget.email!)
+              : l10n.otpSubtitle('email của bạn'),
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
@@ -118,16 +122,16 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildOtpForm() {
+  Widget _buildOtpForm(AppLocalizations l10n) {
     return AuthCard(
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'OTP Code',
-              style: TextStyle(
+            Text(
+              l10n.otpCode,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -136,16 +140,24 @@ class _OtpScreenState extends State<OtpScreen> {
             AppDimensions.spacingS.heightBox,
             CustomTextField(
               controller: _otpController,
-              hintText: 'Nhập mã OTP',
+              hintText: l10n.otpHint,
               keyboardType: TextInputType.number,
-              validator: Validators.otp,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return l10n.otpRequired;
+                }
+                if (value.length != AppConstants.otpLength) {
+                  return l10n.otpInvalid(AppConstants.otpLength);
+                }
+                return null;
+              },
               maxLength: AppConstants.otpLength,
             ),
             TextButton(
               onPressed: _handleResendOtp,
-              child: const Text(
-                'Gửi lại mã OTP',
-                style: TextStyle(
+              child: Text(
+                l10n.resendOtp,
+                style: const TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                 ),
@@ -153,7 +165,7 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             AppDimensions.spacingL.heightBox,
             PrimaryButton(
-              title: 'Tiếp tục',
+              title: l10n.continueLabel,
               onPressed: _handleSubmit,
               isLoading: _isLoading,
             ),
@@ -163,7 +175,7 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildBackButton() {
+  Widget _buildBackButton(AppLocalizations l10n) {
     return GestureDetector(
       onTap: () => context.pop(),
       child: Padding(
@@ -174,7 +186,7 @@ class _OtpScreenState extends State<OtpScreen> {
           AppDimensions.paddingL,
         ),
         child: Text(
-          'Quay lại màn hình đăng nhập',
+          l10n.backToLogin,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),

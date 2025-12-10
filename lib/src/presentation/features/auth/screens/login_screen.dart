@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
@@ -43,6 +44,8 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -63,9 +66,9 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildHeader(),
+                          _buildHeader(l10n),
                           AppDimensions.spacingXL.heightBox,
-                          _buildLoginForm(),
+                          _buildLoginForm(l10n),
                           const Spacer(),
                         ],
                       ),
@@ -73,7 +76,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                   ),
                 ),
               ),
-              _buildTermsCheckbox(),
+              _buildTermsCheckbox(l10n),
             ],
           ),
         ),
@@ -81,13 +84,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppLocalizations l10n) {
     return Column(
       children: [
-        const Text(
-          'Đăng nhập / Đăng ký',
+        Text(
+          l10n.loginTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -99,7 +102,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         ),
         AppDimensions.spacingS.heightBox,
         Text(
-          'Nhập email để tiếp tục',
+          l10n.loginSubtitle,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
@@ -113,16 +116,16 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildLoginForm() {
+  Widget _buildLoginForm(AppLocalizations l10n) {
     return AuthCard(
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Email',
-              style: TextStyle(
+            Text(
+              l10n.email,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -131,13 +134,21 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
             AppDimensions.spacingS.heightBox,
             CustomTextField(
               controller: _emailController,
-              hintText: 'example@email.com',
+              hintText: l10n.emailHint,
               keyboardType: TextInputType.emailAddress,
-              validator: Validators.email,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return l10n.emailRequired;
+                }
+                if (!value.isValidEmail) {
+                  return l10n.emailInvalid;
+                }
+                return null;
+              },
             ),
             AppDimensions.spacingL.heightBox,
             PrimaryButton(
-              title: 'Tiếp tục',
+              title: l10n.continueLabel,
               onPressed: _handleSubmit,
               isLoading: _isLoading,
             ),
@@ -147,7 +158,7 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildTermsCheckbox() {
+  Widget _buildTermsCheckbox(AppLocalizations l10n) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         AppDimensions.paddingL,
@@ -175,17 +186,16 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
               padding: const EdgeInsets.only(top: 12),
               child: Text.rich(
                 TextSpan(
-                  text: 'Tôi đã đọc dòng ',
+                  text: l10n.termsAccept,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
                     fontSize: 13,
                     height: 1.4,
                   ),
-                  children: const [
+                  children: [
                     TextSpan(
-                      text:
-                          'Không thêm cũng được, nhưng thêm vô nhìn cho sang chảnh hơn, hiểu hông mấy má 😏',
-                      style: TextStyle(
+                      text: l10n.termsText,
+                      style: const TextStyle(
                         color: Colors.orange,
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.w500,

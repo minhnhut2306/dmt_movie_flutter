@@ -16,26 +16,26 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Language'),
+            title: Text(l10n.language),
             trailing: DropdownButton<String>(
-              value: settings.locale?.languageCode,
-              hint: const Text('System'),
-              items: const [
-                DropdownMenuItem(value: 'en', child: Text('English')),
-                DropdownMenuItem(value: 'vi', child: Text('Tiếng Việt')),
-                DropdownMenuItem(value: '', child: Text('System')),
+              value: settings.locale?.languageCode ?? '',
+              hint: Text(l10n.languageSystem),
+              items: [
+                DropdownMenuItem(value: 'en', child: Text(l10n.languageEnglish)),
+                DropdownMenuItem(value: 'vi', child: Text(l10n.languageVietnamese)),
+                DropdownMenuItem(value: '', child: Text(l10n.languageSystem)),
               ],
               onChanged: (v) => settings.setLocaleCode(v == '' ? null : v),
             ),
           ),
           ListTile(
-            title: const Text('Theme'),
+            title: Text(l10n.theme),
             trailing: DropdownButton<ThemeMode>(
               value: settings.themeMode,
-              items: const [
-                DropdownMenuItem(value: ThemeMode.system, child: Text('System')),
-                DropdownMenuItem(value: ThemeMode.light, child: Text('Light')),
-                DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark')),
+              items: [
+                DropdownMenuItem(value: ThemeMode.system, child: Text(l10n.themeSystem)),
+                DropdownMenuItem(value: ThemeMode.light, child: Text(l10n.themeLight)),
+                DropdownMenuItem(value: ThemeMode.dark, child: Text(l10n.themeDark)),
               ],
               onChanged: (m) => settings.setThemeMode(m ?? ThemeMode.system),
             ),

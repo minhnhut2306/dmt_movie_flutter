@@ -25,7 +25,7 @@
   "passwordRequired": "Mật khẩu không được để trống",
   "passwordMinLength": "Mật khẩu phải có ít nhất {length} ký tự",
   
-  "continue": "Tiếp tục",
+  "continueLabel": "Tiếp tục",
   "cancel": "Huỷ",
   "save": "Lưu",
   "delete": "Xoá",
@@ -93,5 +93,11 @@
   "loginSuccess": "Đăng nhập thành công",
   
   "movieDetails": "Chi tiết phim",
-  "movieId": "ID Phim: {id}"
+  "movieId": "ID Phim: {id}",
+  
+  "searchContent": "Nội dung tìm kiếm ở đây",
+  "testScreen": "Test CustomTextField",
+  "register": "Đăng ký",
+  "editProfileTitle": "Sửa {name}",
+  "unableToLoadMovies": "Không thể tải danh sách phim"
 }

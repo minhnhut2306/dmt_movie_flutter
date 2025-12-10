@@ -71,7 +71,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get continue => 'Continue';
+  String get continueLabel => 'Continue';
 
   @override
   String get cancel => 'Cancel';
@@ -241,7 +241,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get termsAccept => 'I have read ';
 
   @override
-  String get termsText => 'Just adding this to make it look more professional, you know what I mean 😏';
+  String get termsText =>
+      'Just adding this to make it look more professional, you know what I mean 😏';
 
   @override
   String get registerSuccess => 'Registration successful';
@@ -256,4 +257,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String movieId(String id) {
     return 'Movie ID: $id';
   }
+
+  @override
+  String get searchContent => 'Search content goes here';
+
+  @override
+  String get testScreen => 'Test CustomTextField';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String editProfileTitle(String name) {
+    return 'Edit $name';
+  }
+
+  @override
+  String get unableToLoadMovies => 'Unable to load movies';
 }
