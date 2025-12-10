@@ -81,6 +81,82 @@ class SettingsScreen extends StatelessWidget {
           child: ListView(
             padding: Responsive.pagePadding(context),
             children: [
+              // Nút xem profile
+              Container(
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.cardDark : AppColors.cardLight,
+                  borderRadius: BorderRadius.circular(Responsive.radiusM(context)),
+                  border: Border.all(
+                    color: isDark ? AppColors.darkBorder : AppColors.border,
+                    width: 1,
+                  ),
+                  boxShadow: isDark ? [] : [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(Responsive.radiusM(context)),
+                    onTap: () => context.pushNamed(RouteNames.selectProfile),
+                    child: Padding(
+                      padding: Responsive.cardPadding(context),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(Responsive.spacingS(context)),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(Responsive.radiusS(context)),
+                            ),
+                            child: Icon(
+                              Icons.person_outline,
+                              color: AppColors.primary,
+                              size: Responsive.size24(context),
+                            ),
+                          ),
+                          SizedBox(width: Responsive.spacingM(context)),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  l10n.selectProfile,
+                                  style: TextStyle(
+                                    fontSize: Responsive.bodyFontSize(context),
+                                    fontWeight: FontWeight.w600,
+                                    color: isDark ? Colors.white : AppColors.textPrimary,
+                                  ),
+                                ),
+                                SizedBox(height: 2),
+                                Text(
+                                  'Quản lý profile của bạn',
+                                  style: TextStyle(
+                                    fontSize: Responsive.captionFontSize(context),
+                                    color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: isDark ? AppColors.darkTextSecondary : AppColors.textSecondary,
+                            size: Responsive.size16(context),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              
+              SizedBox(height: Responsive.spacingM(context)),
+              
               _SettingsTile(
                 title: l10n.language,
                 child: DropdownButton<String>(
@@ -219,12 +295,24 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       padding: Responsive.cardPadding(context),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: isDark ? AppColors.cardDark : AppColors.cardLight,
         borderRadius: BorderRadius.circular(Responsive.radiusM(context)),
-        border: Border.all(color: Theme.of(context).dividerColor),
+        border: Border.all(
+          color: isDark ? AppColors.darkBorder : AppColors.border,
+          width: 1,
+        ),
+        boxShadow: isDark ? [] : [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,6 +322,7 @@ class _SettingsTile extends StatelessWidget {
             style: TextStyle(
               fontSize: Responsive.bodyFontSize(context),
               fontWeight: FontWeight.w500,
+              color: isDark ? Colors.white : AppColors.textPrimary,
             ),
           ),
           child,

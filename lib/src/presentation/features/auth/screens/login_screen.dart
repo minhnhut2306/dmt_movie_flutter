@@ -1,3 +1,5 @@
+import 'package:dmt_movie_flutter/src/presentation/features/auth/widgets/auth_background.dart';
+import 'package:dmt_movie_flutter/src/presentation/features/auth/widgets/auth_card.dart';
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/constants/app_dimensions.dart';
@@ -6,7 +8,6 @@ import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
-import '../widgets/auth_widgets.dart';
 
 class LoginRegisterScreen extends StatefulWidget {
   const LoginRegisterScreen({super.key});
