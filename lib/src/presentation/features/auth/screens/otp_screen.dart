@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
-import '../../../../core/app_colors.dart';
 import '../../../../core/responsive.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
-import '../widgets/auth_widgets.dart';
+import '../widgets/auth_background.dart';
+import '../widgets/auth_card.dart';
 
 class OtpScreen extends StatefulWidget {
   final String? email;
@@ -49,10 +49,9 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isDark = context.isDarkMode;
 
     return Scaffold(
-      backgroundColor: isDark ? AppColors.authBackgroundDark : AppColors.authBackgroundLight,
+      backgroundColor: Colors.black,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth = Responsive.maxContentWidth(context);
@@ -62,23 +61,29 @@ class _OtpScreenState extends State<OtpScreen> {
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
               child: Center(
                 child: Container(
-                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
+                  width:
+                      maxWidth == double.infinity ? double.infinity : maxWidth,
                   child: Column(
                     children: [
-                      AuthBackground(isDark: isDark),
+                      const AuthBackground(),
                       Expanded(
                         child: Container(
-                          color: isDark ? AppColors.authBackgroundDark : AppColors.authBackgroundLight,
+                          color: Colors.black,
                           child: Transform.translate(
-                            offset: Offset(0, Responsive.authHeaderOffset(context)),
+                            offset: Offset(
+                              0,
+                              Responsive.authHeaderOffset(context),
+                            ),
                             child: Padding(
                               padding: Responsive.horizontalPadding(context),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  _buildHeader(l10n, isDark),
-                                  SizedBox(height: Responsive.spacingXL(context)),
-                                  _buildOtpForm(l10n, isDark),
+                                  _buildHeader(l10n),
+                                  SizedBox(
+                                    height: Responsive.spacingXL(context),
+                                  ),
+                                  _buildOtpForm(l10n),
                                   const Spacer(),
                                 ],
                               ),
@@ -86,7 +91,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           ),
                         ),
                       ),
-                      _buildBackButton(l10n, isDark),
+                      _buildBackButton(l10n),
                     ],
                   ),
                 ),
@@ -98,24 +103,24 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
+  Widget _buildHeader(AppLocalizations l10n) {
     return Column(
       children: [
         Text(
           l10n.otpTitle,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isDark ? Colors.white : AppColors.textPrimary,
+            color: Colors.white,
             fontSize: Responsive.titleFontSize(context),
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
             height: Responsive.lineHeight12(context),
-            shadows: isDark ? [
+            shadows: [
               Shadow(
                 color: Colors.black87,
                 blurRadius: Responsive.shadowBlur(context),
               ),
-            ] : [],
+            ],
           ),
         ),
         SizedBox(height: Responsive.spacingS(context)),
@@ -125,26 +130,23 @@ class _OtpScreenState extends State<OtpScreen> {
               : l10n.otpSubtitle('email của bạn'),
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isDark 
-              ? Colors.white.withOpacity(0.8)
-              : AppColors.textSecondary,
+            color: Colors.white.withOpacity(0.8),
             fontSize: Responsive.bodyFontSize(context),
             height: Responsive.lineHeight14(context),
-            shadows: isDark ? [
+            shadows: [
               Shadow(
                 color: Colors.black87,
                 blurRadius: Responsive.textBlur(context),
               ),
-            ] : [],
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildOtpForm(AppLocalizations l10n, bool isDark) {
+  Widget _buildOtpForm(AppLocalizations l10n) {
     return AuthCard(
-      isDark: isDark,
       child: Form(
         key: _formKey,
         child: Column(
@@ -153,7 +155,7 @@ class _OtpScreenState extends State<OtpScreen> {
             Text(
               l10n.otpCode,
               style: TextStyle(
-                color: isDark ? Colors.white : AppColors.textPrimary,
+                color: Colors.white,
                 fontSize: Responsive.bodyFontSize(context),
                 fontWeight: FontWeight.w600,
               ),
@@ -179,7 +181,7 @@ class _OtpScreenState extends State<OtpScreen> {
               child: Text(
                 l10n.resendOtp,
                 style: TextStyle(
-                  color: AppColors.primary,
+                  color: Colors.blue,
                   fontSize: Responsive.bodyFontSize(context),
                   decoration: TextDecoration.underline,
                 ),
@@ -198,7 +200,7 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildBackButton(AppLocalizations l10n, bool isDark) {
+  Widget _buildBackButton(AppLocalizations l10n) {
     return GestureDetector(
       onTap: () => context.pop(),
       child: Padding(
@@ -212,9 +214,7 @@ class _OtpScreenState extends State<OtpScreen> {
           l10n.backToLogin,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isDark 
-              ? Colors.white.withOpacity(0.8)
-              : AppColors.textSecondary,
+            color: Colors.white.withOpacity(0.8),
             fontSize: Responsive.captionFontSize(context),
             decoration: TextDecoration.underline,
           ),
