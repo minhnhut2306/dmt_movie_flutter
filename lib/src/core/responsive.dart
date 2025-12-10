@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 
 class Responsive {
-  // Breakpoints
+  Responsive._();
+
   static const double tabletBreakpoint = 768;
   static const double largeTabletBreakpoint = 1024;
   
-  // Screen dimensions
   static double width(BuildContext context) => MediaQuery.of(context).size.width;
   static double height(BuildContext context) => MediaQuery.of(context).size.height;
   
-  // Device type detection
   static bool isMobile(BuildContext context) => width(context) < tabletBreakpoint;
   static bool isTablet(BuildContext context) => 
       width(context) >= tabletBreakpoint && width(context) < largeTabletBreakpoint;
   static bool isLargeTablet(BuildContext context) => width(context) >= largeTabletBreakpoint;
   
-  // For navigation purposes, treat large tablets as tablets
   static bool isTabletOrLarger(BuildContext context) => width(context) >= tabletBreakpoint;
   
-  // Responsive values
   static T responsive<T>(
     BuildContext context, {
     required T mobile,
@@ -34,7 +31,6 @@ class Responsive {
     }
   }
   
-  // Padding and margins
   static EdgeInsets pagePadding(BuildContext context) {
     return responsive<EdgeInsets>(
       context,
@@ -53,7 +49,6 @@ class Responsive {
     );
   }
   
-  // Navigation dimensions
   static double bottomNavHeight(BuildContext context) {
     return responsive<double>(
       context,
@@ -81,7 +76,6 @@ class Responsive {
     );
   }
   
-  // Icon sizes
   static double iconSize(BuildContext context, {bool isSelected = false}) {
     final baseSize = responsive<double>(
       context,
@@ -110,7 +104,6 @@ class Responsive {
     );
   }
   
-  // Animation durations
   static Duration animationDuration(BuildContext context, {bool isLong = false}) {
     final baseDuration = isLong ? 400 : 200;
     final multiplier = responsive<double>(
@@ -122,7 +115,6 @@ class Responsive {
     return Duration(milliseconds: (baseDuration * multiplier).round());
   }
   
-  // Grid and layout
   static int crossAxisCount(BuildContext context, {
     int mobile = 2,
     int tablet = 3,
@@ -136,7 +128,6 @@ class Responsive {
     );
   }
   
-  // Max width for content
   static double maxContentWidth(BuildContext context) {
     return responsive<double>(
       context,
@@ -146,7 +137,6 @@ class Responsive {
     );
   }
   
-  // Blur intensity for glassmorphism
   static double blurIntensity(BuildContext context) {
     return responsive<double>(
       context,
@@ -156,7 +146,6 @@ class Responsive {
     );
   }
   
-  // Shadow properties
   static double shadowBlurRadius(BuildContext context) {
     return responsive<double>(
       context,

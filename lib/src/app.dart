@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'core/app_theme.dart';
-import 'core/routes.dart';
-import 'providers/settings_provider.dart';
+import 'core/router/app_router.dart';
+import 'presentation/providers/settings_provider.dart';
 
 class MovieApp extends StatelessWidget {
   const MovieApp({super.key});
@@ -16,6 +15,7 @@ class MovieApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'DMT Movie',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: settings.themeMode,
@@ -26,9 +26,12 @@ class MovieApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('en'), Locale('vi')],
-     initialRoute: AppRoutes.defaultRoute,
-      routes: AppRoutes.map,
+      supportedLocales: const [
+        Locale('en'),
+        Locale('vi'),
+      ],
+      initialRoute: AppRouter.initialRoute,
+      onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class AppTextStyles {
-  // Display styles
+  AppTextStyles._();
+
   static const displayLarge = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w800,
@@ -24,7 +25,6 @@ class AppTextStyles {
     height: 1.3,
   );
   
-  // Heading styles
   static const headingLarge = TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w600,
@@ -44,7 +44,6 @@ class AppTextStyles {
     height: 1.4,
   );
   
-  // Body styles
   static const bodyLarge = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
@@ -63,7 +62,6 @@ class AppTextStyles {
     height: 1.4,
   );
   
-  // Label styles
   static const labelLarge = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -82,7 +80,6 @@ class AppTextStyles {
     height: 1.2,
   );
   
-  // Navigation specific styles
   static const navLabel = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w500,
@@ -107,7 +104,6 @@ class AppTextStyles {
     height: 1.3,
   );
   
-  // Button styles
   static const button = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
@@ -126,14 +122,12 @@ class AppTextStyles {
     height: 1.2,
   );
   
-  // Caption
   static const caption = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w400,
     height: 1.3,
   );
   
-  // Theme-aware helper method
   static TextStyle getNavLabelStyle({
     required bool isSelected,
     required bool isTablet,

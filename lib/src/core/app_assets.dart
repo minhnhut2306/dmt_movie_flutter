@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppIcons {
+  AppIcons._();
+
   static const IconData homeOutlined = Icons.home_outlined;
   static const IconData homeFilled = Icons.home_rounded;
   static const IconData searchOutlined = Icons.search_outlined;
@@ -10,6 +12,8 @@ class AppIcons {
 }
 
 class AppImages {
+  AppImages._();
+
   static const String basePath = 'assets/images/';
 
   static const String thu = '${basePath}thu.jpg';

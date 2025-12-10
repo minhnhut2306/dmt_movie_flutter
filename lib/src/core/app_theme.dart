@@ -4,12 +4,12 @@ import 'app_colors.dart';
 import 'app_text_styles.dart';
 
 class AppTheme {
-  // Light Theme
+  AppTheme._();
+
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     useMaterial3: true,
     
-    // Color scheme
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
       onPrimary: Colors.white,
@@ -19,21 +19,15 @@ class AppTheme {
       onSecondary: Colors.white,
       surface: AppColors.surface,
       onSurface: AppColors.textPrimary,
-      background: AppColors.background,
-      onBackground: AppColors.textPrimary,
       error: AppColors.error,
       onError: Colors.white,
       outline: AppColors.border,
       outlineVariant: AppColors.borderLight,
     ),
     
-    // Primary color
     primaryColor: AppColors.primary,
-    
-    // Scaffold
     scaffoldBackgroundColor: AppColors.background,
     
-    // AppBar
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.backgroundLight,
       foregroundColor: AppColors.textPrimary,
@@ -46,7 +40,6 @@ class AppTheme {
       toolbarTextStyle: AppTextStyles.body,
     ),
     
-    // Text Theme
     textTheme: const TextTheme(
       displayLarge: AppTextStyles.displayLarge,
       displayMedium: AppTextStyles.displayMedium,
@@ -65,7 +58,6 @@ class AppTheme {
       displayColor: AppColors.textPrimary,
     ),
     
-    // Card Theme
     cardTheme: CardThemeData(
       color: AppColors.surface,
       elevation: 0,
@@ -77,7 +69,6 @@ class AppTheme {
       margin: EdgeInsets.zero,
     ),
     
-    // Bottom Navigation Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.navBackground,
       selectedItemColor: AppColors.primary,
@@ -88,7 +79,6 @@ class AppTheme {
       unselectedLabelStyle: AppTextStyles.navLabel,
     ),
     
-    // Elevated Button Theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
@@ -103,7 +93,6 @@ class AppTheme {
       ),
     ),
     
-    // Outlined Button Theme
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.primary,
@@ -116,7 +105,6 @@ class AppTheme {
       ),
     ),
     
-    // Text Button Theme
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         foregroundColor: AppColors.primary,
@@ -125,7 +113,6 @@ class AppTheme {
       ),
     ),
     
-    // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.surfaceVariant,
@@ -151,12 +138,10 @@ class AppTheme {
     ),
   );
   
-  // Dark Theme
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     useMaterial3: true,
     
-    // Color scheme
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primary,
       onPrimary: Colors.white,
@@ -166,21 +151,15 @@ class AppTheme {
       onSecondary: Colors.white,
       surface: AppColors.darkSurface,
       onSurface: AppColors.darkTextPrimary,
-      background: AppColors.darkBackground,
-      onBackground: AppColors.darkTextPrimary,
       error: AppColors.error,
       onError: Colors.white,
       outline: AppColors.darkBorder,
       outlineVariant: AppColors.darkBorderLight,
     ),
     
-    // Primary color
     primaryColor: AppColors.primary,
-    
-    // Scaffold
     scaffoldBackgroundColor: AppColors.darkBackground,
     
-    // AppBar
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.darkBackgroundLight,
       foregroundColor: AppColors.darkTextPrimary,
@@ -196,7 +175,6 @@ class AppTheme {
       ),
     ),
     
-    // Text Theme
     textTheme: const TextTheme(
       displayLarge: AppTextStyles.displayLarge,
       displayMedium: AppTextStyles.displayMedium,
@@ -215,7 +193,6 @@ class AppTheme {
       displayColor: AppColors.darkTextPrimary,
     ),
     
-    // Card Theme
     cardTheme: CardThemeData(
       color: AppColors.darkSurface,
       elevation: 0,
@@ -227,7 +204,6 @@ class AppTheme {
       margin: EdgeInsets.zero,
     ),
     
-    // Bottom Navigation Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.darkNavBackground,
       selectedItemColor: AppColors.primary,
@@ -238,7 +214,6 @@ class AppTheme {
       unselectedLabelStyle: AppTextStyles.navLabel,
     ),
     
-    // Elevated Button Theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
@@ -253,7 +228,6 @@ class AppTheme {
       ),
     ),
     
-    // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.darkSurfaceVariant,
