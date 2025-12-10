@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../core/app_assets.dart';
-import '../../../../core/app_colors.dart';
 import '../../../../core/responsive.dart';
 
 class AuthBackground extends StatelessWidget {
@@ -15,6 +14,7 @@ class AuthBackground extends StatelessWidget {
       height: backgroundHeight,
       child: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -23,6 +23,7 @@ class AuthBackground extends StatelessWidget {
               ),
             ),
           ),
+          // Gradient overlay
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -33,13 +34,13 @@ class AuthBackground extends StatelessWidget {
                   Colors.black.withOpacity(0.3),
                   Colors.black.withOpacity(0.6),
                   Colors.black.withOpacity(0.9),
-                  AppColors.authBackgroundDark,
+                  Colors.black,
                 ] : [
-                  AppColors.authBackgroundLight.withOpacity(0.0),
-                  AppColors.authBackgroundLight.withOpacity(0.3),
-                  AppColors.authBackgroundLight.withOpacity(0.6),
-                  AppColors.authBackgroundLight.withOpacity(0.9),
-                  AppColors.authBackgroundLight,
+                  const Color(0xFFF8F9FA).withOpacity(0.0),
+                  const Color(0xFFF8F9FA).withOpacity(0.3),
+                  const Color(0xFFF8F9FA).withOpacity(0.6),
+                  const Color(0xFFF8F9FA).withOpacity(0.9),
+                  const Color(0xFFF8F9FA),
                 ],
                 stops: const [0.0, 0.5, 0.7, 0.85, 1.0],
               ),
@@ -50,4 +51,3 @@ class AuthBackground extends StatelessWidget {
     );
   }
 }
-

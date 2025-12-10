@@ -4,6 +4,7 @@ import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/extensions.dart';
+import '../../../../core/app_colors.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
 import '../widgets/auth_card.dart';
@@ -49,9 +50,10 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final isDark = context.isDarkMode;
     
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: isDark ? Colors.black : const Color(0xFFF8F9FA),
       body: SingleChildScrollView(
         child: SizedBox(
           height: context.screenHeight,
@@ -60,7 +62,7 @@ class _OtpScreenState extends State<OtpScreen> {
               const AuthBackground(),
               Expanded(
                 child: Container(
-                  color: Colors.black,
+                  color: isDark ? Colors.black : const Color(0xFFF8F9FA),
                   child: Transform.translate(
                     offset: const Offset(0, -150),
                     child: Padding(
@@ -70,9 +72,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          _buildHeader(l10n),
+                          _buildHeader(l10n, isDark),
                           AppDimensions.spacingXL.heightBox,
-                          _buildOtpForm(l10n),
+                          _buildOtpForm(l10n, isDark),
                           const Spacer(),
                         ],
                       ),
@@ -80,7 +82,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ),
-              _buildBackButton(l10n),
+              _buildBackButton(l10n, isDark),
             ],
           ),
         ),
@@ -88,19 +90,25 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n) {
+  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
     return Column(
       children: [
         Text(
           l10n.otpTitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: isDark ? Colors.white : const Color(0xFF1A1A1A),
             fontSize: 28,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            shadows: [
-              Shadow(color: Colors.black87, blurRadius: 20),
+            shadows: isDark ? [
+              const Shadow(color: Colors.black87, blurRadius: 20),
+            ] : [
+              Shadow(
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 2),
+              ),
             ],
           ),
         ),
@@ -111,18 +119,20 @@ class _OtpScreenState extends State<OtpScreen> {
               : l10n.otpSubtitle('email của bạn'),
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
+            color: isDark 
+              ? Colors.white.withOpacity(0.8)
+              : const Color(0xFF666666),
             fontSize: 15,
-            shadows: const [
-              Shadow(color: Colors.black87, blurRadius: 15),
-            ],
+            shadows: isDark ? [
+              const Shadow(color: Colors.black87, blurRadius: 15),
+            ] : [],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildOtpForm(AppLocalizations l10n) {
+  Widget _buildOtpForm(AppLocalizations l10n, bool isDark) {
     return AuthCard(
       child: Form(
         key: _formKey,
@@ -131,8 +141,8 @@ class _OtpScreenState extends State<OtpScreen> {
           children: [
             Text(
               l10n.otpCode,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: isDark ? Colors.white : const Color(0xFF1A1A1A),
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
@@ -155,11 +165,18 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             TextButton(
               onPressed: _handleResendOtp,
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                  vertical: AppDimensions.spacingS,
+                ),
+              ),
               child: Text(
                 l10n.resendOtp,
-                style: const TextStyle(
-                  color: Colors.blue,
+                style: TextStyle(
+                  color: isDark ? Colors.blue.shade300 : AppColors.primary,
                   decoration: TextDecoration.underline,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -175,10 +192,11 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildBackButton(AppLocalizations l10n) {
+  Widget _buildBackButton(AppLocalizations l10n, bool isDark) {
     return GestureDetector(
       onTap: () => context.pop(),
-      child: Padding(
+      child: Container(
+        color: isDark ? Colors.black : const Color(0xFFF8F9FA),
         padding: EdgeInsets.fromLTRB(
           AppDimensions.paddingL,
           0,
@@ -189,9 +207,12 @@ class _OtpScreenState extends State<OtpScreen> {
           l10n.backToLogin,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.8),
+            color: isDark 
+              ? Colors.white.withOpacity(0.8)
+              : const Color(0xFF666666),
             fontSize: 13,
             decoration: TextDecoration.underline,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

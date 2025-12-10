@@ -10,9 +10,7 @@ import '../../../providers/settings_provider.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  void _showLogoutDialog(BuildContext context, AppLocalizations l10n) {
-    final isDark = context.isDarkMode;
-    
+  void _showLogoutDialog(BuildContext context, AppLocalizations l10n) {    
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
