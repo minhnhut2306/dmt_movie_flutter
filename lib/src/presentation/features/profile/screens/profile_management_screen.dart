@@ -1,16 +1,18 @@
+import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/app_assets.dart';
 import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/utils/extensions.dart';
-
 class ProfileManagementScreen extends StatelessWidget {
   const ProfileManagementScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     final profiles = [
-      {'name': 'Người dùng', 'color': Colors.teal, 'image': AppImages.thu},
-      {'name': 'Trẻ em', 'color': Colors.orange, 'image': AppImages.treen},
+      {'name': l10n.user, 'color': Colors.teal, 'image': AppImages.thu},
+      {'name': l10n.kids, 'color': Colors.orange, 'image': AppImages.treen},
     ];
 
     return Scaffold(
@@ -23,9 +25,9 @@ class ProfileManagementScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => context.pop(),
         ),
-        title: const Text(
-          'Ai đang xem?',
-          style: TextStyle(
+        title: Text(
+          l10n.selectProfile,
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.white,
             fontSize: 18,
@@ -45,13 +47,15 @@ class ProfileManagementScreen extends StatelessWidget {
                       color: profile['color'] as Color,
                       image: profile['image'] as String,
                       onTap: () {
-                        context.showSnackBar('Chỉnh sửa ${profile['name']}');
+                        context.showSnackBar(
+                          l10n.editProfileTitle(profile['name'] as String)
+                        );
                       },
                     ),
                   ),
                   _AddProfileButton(
                     onTap: () {
-                      context.showSnackBar('Thêm hồ sơ mới');
+                      context.showSnackBar(l10n.addNewProfile);
                     },
                   ),
                 ],
@@ -79,7 +83,8 @@ class _ProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isKidsProfile = name.toLowerCase() == 'trẻ em';
+    final l10n = AppLocalizations.of(context)!;
+    final isKidsProfile = name.toLowerCase() == l10n.kids.toLowerCase();
 
     return Container(
       margin: EdgeInsets.only(bottom: AppDimensions.spacingM),
@@ -123,9 +128,9 @@ class _ProfileItem extends StatelessWidget {
                   ),
                 ),
                 if (!isKidsProfile)
-                  const Text(
-                    'Sửa hồ sơ',
-                    style: TextStyle(
+                  Text(
+                    l10n.editProfile,
+                    style: const TextStyle(
                       color: Colors.white54,
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -153,6 +158,8 @@ class _AddProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[850],
@@ -184,10 +191,10 @@ class _AddProfileButton extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: AppDimensions.spacingS + 4),
-                const Expanded(
+                Expanded(
                   child: Text(
-                    'Thêm hồ sơ mới',
-                    style: TextStyle(
+                    l10n.addNewProfile,
+                    style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
