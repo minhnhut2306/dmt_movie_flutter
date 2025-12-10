@@ -1,0 +1,104 @@
+{
+  "appTitle": "DMT Movie",
+  "homeTitle": "Phim",
+  "settingsTitle": "Cài đặt",
+  "searchTitle": "Tìm kiếm",
+  "openSettings": "Mở cài đặt",
+  "seeDetails": "Xem chi tiết",
+  "noMovies": "Không có phim",
+  
+  "tabHome": "Trang chủ",
+  "tabSearch": "Tìm kiếm",
+  "tabSettings": "Cài đặt",
+  
+  "loginTitle": "Đăng nhập / Đăng ký",
+  "loginSubtitle": "Nhập email để tiếp tục",
+  "email": "Email",
+  "emailHint": "example@email.com",
+  "emailRequired": "Email không được để trống",
+  "emailInvalid": "Email không hợp lệ",
+  
+  "password": "Mật khẩu",
+  "passwordHint": "Nhập mật khẩu",
+  "passwordRequired": "Mật khẩu không được để trống",
+  "passwordMinLength": "Mật khẩu phải có ít nhất {} ký tự",
+  
+  "continueLabel": "Tiếp tục",
+  "cancel": "Huỷ",
+  "save": "Lưu",
+  "delete": "Xoá",
+  "edit": "Sửa",
+  "add": "Thêm",
+  "back": "Quay lại",
+  "retry": "Thử lại",
+  "ok": "Đồng ý",
+  
+  "otpTitle": "Nhập mã OTP",
+  "otpSubtitle": "Nhập mã OTP đã được gửi đến {}",
+  "otpCode": "Mã OTP",
+  "otpHint": "Nhập mã OTP",
+  "otpRequired": "Mã OTP không được để trống",
+  "otpInvalid": "Mã OTP phải có {} chữ số",
+  "resendOtp": "Gửi lại mã OTP",
+  "backToLogin": "Quay lại màn hình đăng nhập",
+  "otpVerified": "Xác thực thành công",
+  "otpResent": "Mã OTP đã được gửi lại",
+  
+  "selectProfile": "Ai đang xem?",
+  "manageProfiles": "Quản lý hồ sơ",
+  "addProfile": "Thêm",
+  "addNewProfile": "Thêm hồ sơ mới",
+  "editProfile": "Sửa hồ sơ",
+  "maxProfilesReached": "Đã đạt giới hạn {} hồ sơ",
+  "profileSelected": "Đã chọn {}",
+  
+  "user": "Người dùng",
+  "kids": "Trẻ em",
+  
+  "name": "Tên",
+  "nameHint": "Nhập tên",
+  "nameRequired": "Tên không được để trống",
+  "nameMinLength": "Tên phải có ít nhất {} ký tự",
+  "nameMaxLength": "Tên không được vượt quá {} ký tự",
+  
+  "phone": "Số điện thoại",
+  "phoneHint": "Nhập số điện thoại",
+  "phoneRequired": "Số điện thoại không được để trống",
+  "phoneInvalid": "Số điện thoại không hợp lệ",
+  
+  "theme": "Giao diện",
+  "themeSystem": "Hệ thống",
+  "themeLight": "Sáng",
+  "themeDark": "Tối",
+  
+  "language": "Ngôn ngữ",
+  "languageSystem": "Hệ thống",
+  "languageEnglish": "English",
+  "languageVietnamese": "Tiếng Việt",
+  
+  "error": "Lỗi",
+  "success": "Thành công",
+  "warning": "Cảnh báo",
+  "info": "Thông tin",
+  
+  "loadingMovies": "Đang tải phim...",
+  "errorLoadingMovies": "Không thể tải danh sách phim: {}",
+  
+  "termsAccept": "Tôi đã đọc dòng ",
+  "termsText": "Không thêm cũng được, nhưng thêm vô nhìn cho sang chảnh hơn, hiểu hông mấy má 😏",
+  
+  "registerSuccess": "Đăng ký thành công",
+  "loginSuccess": "Đăng nhập thành công",
+  
+  "movieDetails": "Chi tiết phim",
+  "movieId": "ID Phim: {}",
+  
+  "searchContent": "Nội dung tìm kiếm ở đây",
+  "testScreen": "Test CustomTextField",
+  "register": "Đăng ký",
+  "editProfileTitle": "Sửa {}",
+  "unableToLoadMovies": "Không thể tải danh sách phim",
+  "logout": "Đăng xuất",
+  "confirmLogout": "Bạn có chắc chắn muốn đăng xuất?",
+  "manageProfile": "Quản lý profile của bạn"
+}

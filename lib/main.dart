@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'src/app.dart';
 import 'src/presentation/providers/settings_provider.dart';
 import 'src/presentation/providers/movie_provider.dart';
@@ -8,6 +9,8 @@ import 'src/data/services/api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  await EasyLocalization.ensureInitialized();
 
   final settings = SettingsProvider();
   await settings.load();
@@ -16,14 +19,20 @@ void main() async {
   final movieRepository = MovieRepository(apiService);
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: settings),
-        ChangeNotifierProvider(
-          create: (_) => MovieProvider(movieRepository),
-        ),
-      ],
-      child: const MovieApp(),
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('vi')],
+      path: 'assets/translations', 
+      fallbackLocale: const Locale('en'),
+      startLocale: settings.locale, 
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: settings),
+          ChangeNotifierProvider(
+            create: (_) => MovieProvider(movieRepository),
+          ),
+        ],
+        child: const MovieApp(),
+      ),
     ),
   );
 }

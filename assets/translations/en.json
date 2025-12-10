@@ -1,0 +1,104 @@
+{
+  "appTitle": "DMT Movie",
+  "homeTitle": "Movies",
+  "settingsTitle": "Settings",
+  "searchTitle": "Search",
+  "openSettings": "Open settings",
+  "seeDetails": "See details",
+  "noMovies": "No movies",
+  
+  "tabHome": "Home",
+  "tabSearch": "Search",
+  "tabSettings": "Settings",
+  
+  "loginTitle": "Login / Register",
+  "loginSubtitle": "Enter your email to continue",
+  "email": "Email",
+  "emailHint": "example@email.com",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Invalid email address",
+  
+  "password": "Password",
+  "passwordHint": "Enter password",
+  "passwordRequired": "Password is required",
+  "passwordMinLength": "Password must be at least {} characters",
+  
+  "continueLabel": "Continue",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "edit": "Edit",
+  "add": "Add",
+  "back": "Back",
+  "retry": "Retry",
+  "ok": "OK",
+  
+  "otpTitle": "Enter OTP Code",
+  "otpSubtitle": "Enter the OTP code sent to {}",
+  "otpCode": "OTP Code",
+  "otpHint": "Enter OTP code",
+  "otpRequired": "OTP code is required",
+  "otpInvalid": "OTP must be {} digits",
+  "resendOtp": "Resend OTP",
+  "backToLogin": "Back to login screen",
+  "otpVerified": "Verification successful",
+  "otpResent": "OTP code has been resent",
+  
+  "selectProfile": "Who's watching?",
+  "manageProfiles": "Manage Profiles",
+  "addProfile": "Add",
+  "addNewProfile": "Add new profile",
+  "editProfile": "Edit profile",
+  "maxProfilesReached": "Maximum {} profiles reached",
+  "profileSelected": "{} selected",
+  
+  "user": "User",
+  "kids": "Kids",
+  
+  "name": "Name",
+  "nameHint": "Enter name",
+  "nameRequired": "Name is required",
+  "nameMinLength": "Name must be at least {} characters",
+  "nameMaxLength": "Name cannot exceed {} characters",
+  
+  "phone": "Phone",
+  "phoneHint": "Enter phone number",
+  "phoneRequired": "Phone number is required",
+  "phoneInvalid": "Invalid phone number",
+  
+  "theme": "Theme",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  
+  "language": "Language",
+  "languageSystem": "System",
+  "languageEnglish": "English",
+  "languageVietnamese": "Tiếng Việt",
+  
+  "error": "Error",
+  "success": "Success",
+  "warning": "Warning",
+  "info": "Information",
+  
+  "loadingMovies": "Loading movies...",
+  "errorLoadingMovies": "Unable to load movies: {}",
+  
+  "termsAccept": "I have read ",
+  "termsText": "Just adding this to make it look more professional, you know what I mean 😏",
+  
+  "registerSuccess": "Registration successful",
+  "loginSuccess": "Login successful",
+  
+  "movieDetails": "Movie Details",
+  "movieId": "Movie ID: {}",
+  
+  "searchContent": "Search content goes here",
+  "testScreen": "Test CustomTextField",
+  "register": "Register",
+  "editProfileTitle": "Edit {}",
+  "unableToLoadMovies": "Unable to load movies",
+  "logout": "Đăng xuất",
+  "confirmLogout": "Bạn có chắc chắn muốn đăng xuất?",
+  "manageProfile": "Quản lý profile của bạn"
+}

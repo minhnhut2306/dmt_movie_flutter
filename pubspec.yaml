@@ -17,8 +17,7 @@ dependencies:
   package_info_plus: ^8.0.0
   url_launcher: ^6.3.0
   # đa ngôn ngữ
-  flutter_localizations:
-    sdk: flutter
+  easy_localization: ^3.0.8
   flutter_gen: ^5.11.0
 
 dev_dependencies:
