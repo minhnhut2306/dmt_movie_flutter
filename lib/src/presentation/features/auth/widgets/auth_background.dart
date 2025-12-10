@@ -4,12 +4,11 @@ import '../../../../core/app_colors.dart';
 import '../../../../core/responsive.dart';
 
 class AuthBackground extends StatelessWidget {
-  final bool isDark;
-  
-  const AuthBackground({super.key, required this.isDark});
+  const AuthBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final backgroundHeight = Responsive.authBackgroundHeight(context);
 
     return SizedBox(
@@ -54,16 +53,13 @@ class AuthBackground extends StatelessWidget {
 
 class AuthCard extends StatelessWidget {
   final Widget child;
-  final bool isDark;
 
-  const AuthCard({
-    super.key, 
-    required this.child,
-    required this.isDark,
-  });
+  const AuthCard({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       padding: Responsive.cardPadding(context),
       decoration: BoxDecoration(
