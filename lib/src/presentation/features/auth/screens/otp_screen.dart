@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
-import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/responsive.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/app_text_styles.dart';
 import '../../../../core/utils/extensions.dart';
@@ -53,38 +53,47 @@ class _OtpScreenState extends State<OtpScreen> {
     
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.screenHeight,
-          child: Column(
-            children: [
-              const AuthBackground(),
-              Expanded(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxWidth = Responsive.maxContentWidth(context);
+          
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Center(
                 child: Container(
-                  color: Colors.black,
-                  child: Transform.translate(
-                    offset: const Offset(0, -150),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppDimensions.paddingL,
+                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
+                  child: Column(
+                    children: [
+                      const AuthBackground(),
+                      Expanded(
+                        child: Container(
+                          color: Colors.black,
+                          child: Transform.translate(
+                            offset: Offset(0, Responsive.authHeaderOffset(context)),
+                            child: Padding(
+                              padding: Responsive.horizontalPadding(context),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  _buildHeader(l10n),
+                                  SizedBox(height: Responsive.spacingXL(context)),
+                                  _buildOtpForm(l10n),
+                                  const Spacer(),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _buildHeader(l10n),
-                          AppDimensions.spacingXL.heightBox,
-                          _buildOtpForm(l10n),
-                          const Spacer(),
-                        ],
-                      ),
-                    ),
+                      _buildBackButton(l10n),
+                    ],
                   ),
                 ),
               ),
-              _buildBackButton(l10n),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -95,17 +104,17 @@ class _OtpScreenState extends State<OtpScreen> {
         Text(
           l10n.otpTitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: AppTextStyles.fontSize7XL,
+            fontSize: Responsive.titleFontSize(context),
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            shadows: [
+            shadows: const [
               Shadow(color: Colors.black87, blurRadius: 20),
             ],
           ),
         ),
-        AppDimensions.spacingS.heightBox,
+        SizedBox(height: Responsive.spacingS(context)),
         Text(
           widget.email != null
               ? l10n.otpSubtitle(widget.email!)
@@ -113,7 +122,7 @@ class _OtpScreenState extends State<OtpScreen> {
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
-            fontSize: AppTextStyles.fontSizeXL,
+            fontSize: Responsive.bodyFontSize(context),
             shadows: const [
               Shadow(color: Colors.black87, blurRadius: 15),
             ],
@@ -132,13 +141,13 @@ class _OtpScreenState extends State<OtpScreen> {
           children: [
             Text(
               l10n.otpCode,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: AppTextStyles.fontSizeL,
+                fontSize: Responsive.bodyFontSize(context),
                 fontWeight: FontWeight.w600,
               ),
             ),
-            AppDimensions.spacingS.heightBox,
+            SizedBox(height: Responsive.spacingS(context)),
             CustomTextField(
               controller: _otpController,
               hintText: l10n.otpHint,
@@ -158,18 +167,19 @@ class _OtpScreenState extends State<OtpScreen> {
               onPressed: _handleResendOtp,
               child: Text(
                 l10n.resendOtp,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.blue,
-                  fontSize: AppTextStyles.fontSizeL,
+                  fontSize: Responsive.bodyFontSize(context),
                   decoration: TextDecoration.underline,
                 ),
               ),
             ),
-            AppDimensions.spacingL.heightBox,
+            SizedBox(height: Responsive.spacingL(context)),
             PrimaryButton(
               title: l10n.continueLabel,
               onPressed: _handleSubmit,
               isLoading: _isLoading,
+              height: Responsive.buttonHeight(context),
             ),
           ],
         ),
@@ -182,17 +192,17 @@ class _OtpScreenState extends State<OtpScreen> {
       onTap: () => context.pop(),
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-          AppDimensions.paddingL,
+          Responsive.spacingL(context),
           0,
-          AppDimensions.paddingL,
-          AppDimensions.paddingL,
+          Responsive.spacingL(context),
+          Responsive.spacingL(context),
         ),
         child: Text(
           l10n.backToLogin,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
-            fontSize: AppTextStyles.fontSizeBase,
+            fontSize: Responsive.captionFontSize(context),
             decoration: TextDecoration.underline,
           ),
         ),

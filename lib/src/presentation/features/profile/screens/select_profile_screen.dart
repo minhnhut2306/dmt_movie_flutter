@@ -3,7 +3,7 @@ import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../core/app_assets.dart';
 import '../../../../core/app_text_styles.dart';
 import '../../../../core/constants/app_constants.dart';
-import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/responsive.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../common/cards/profile_card.dart';
@@ -53,42 +53,51 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final maxWidth = Responsive.maxContentWidth(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
+        toolbarHeight: Responsive.appBarHeight(context),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: Responsive.size24(context),
+          ),
           onPressed: () => context.pop(),
         ),
         title: Text(
           l10n.selectProfile,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: AppTextStyles.fontSize3XL,
+            fontSize: Responsive.headingFontSize(context),
             color: Colors.black,
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppDimensions.paddingXL,
+      body: Center(
+        child: Container(
+          width: maxWidth == double.infinity ? double.infinity : maxWidth,
+          child: Column(
+            children: [
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: Responsive.horizontalPadding(context),
+                      child: _buildProfileGrid(l10n),
+                    ),
                   ),
-                  child: _buildProfileGrid(l10n),
                 ),
               ),
-            ),
+              _buildManageButton(l10n),
+              SizedBox(height: Responsive.spacingM(context)),
+            ],
           ),
-          _buildManageButton(l10n),
-          SizedBox(height: AppDimensions.spacingM),
-        ],
+        ),
       ),
     );
   }
@@ -140,7 +149,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
     if (itemsInRow.isEmpty) return const SizedBox.shrink();
 
     return Padding(
-      padding: EdgeInsets.only(bottom: AppDimensions.spacing2XL - 10),
+      padding: EdgeInsets.only(bottom: Responsive.profileRowSpacing(context)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -148,7 +157,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
             itemsInRow[0]
           else ...[
             itemsInRow[0],
-            SizedBox(width: AppDimensions.spacing2XL),
+            SizedBox(width: Responsive.profileGridSpacing(context)),
             itemsInRow[1],
           ],
         ],
@@ -157,25 +166,31 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
   }
 
   Widget _buildAddButton(AppLocalizations l10n) {
+    final avatarSize = Responsive.avatarLarge(context);
+    
     return GestureDetector(
       onTap: _handleAddProfile,
       child: Column(
         children: [
           Container(
-            width: AppDimensions.avatarL,
-            height: AppDimensions.avatarL,
+            width: avatarSize,
+            height: avatarSize,
             decoration: BoxDecoration(
               color: Colors.grey[300],
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.add, color: Colors.black, size: 40),
+            child: Icon(
+              Icons.add,
+              color: Colors.black,
+              size: Responsive.size40(context),
+            ),
           ),
-          SizedBox(height: AppDimensions.spacingS),
+          SizedBox(height: Responsive.spacingS(context)),
           Text(
             l10n.addProfile,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black,
-              fontSize: AppTextStyles.fontSize2XL,
+              fontSize: Responsive.bodyFontSize(context),
             ),
           ),
         ],
@@ -185,9 +200,8 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
 
   Widget _buildManageButton(AppLocalizations l10n) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppDimensions.paddingXL,
-        vertical: AppDimensions.paddingXL,
+      padding: Responsive.horizontalPadding(context).add(
+        Responsive.verticalPadding(context),
       ),
       child: OutlineButton(
         title: l10n.manageProfiles,
@@ -196,6 +210,7 @@ class _SelectProfileScreenState extends State<SelectProfileScreen> {
         borderColor: Colors.grey[300],
         textColor: Colors.black,
         width: double.infinity,
+        height: Responsive.buttonHeight(context),
       ),
     );
   }

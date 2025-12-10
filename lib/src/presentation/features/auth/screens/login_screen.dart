@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
-import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/responsive.dart';
 import '../../../../core/app_text_styles.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
@@ -48,38 +48,47 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          height: context.screenHeight,
-          child: Column(
-            children: [
-              const AuthBackground(),
-              Expanded(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxWidth = Responsive.maxContentWidth(context);
+          
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: Center(
                 child: Container(
-                  color: Colors.black,
-                  child: Transform.translate(
-                    offset: const Offset(0, -150),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppDimensions.paddingL,
+                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
+                  child: Column(
+                    children: [
+                      const AuthBackground(),
+                      Expanded(
+                        child: Container(
+                          color: Colors.black,
+                          child: Transform.translate(
+                            offset: Offset(0, Responsive.authHeaderOffset(context)),
+                            child: Padding(
+                              padding: Responsive.horizontalPadding(context),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  _buildHeader(l10n),
+                                  SizedBox(height: Responsive.spacingXL(context)),
+                                  _buildLoginForm(l10n),
+                                  const Spacer(),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          _buildHeader(l10n),
-                          AppDimensions.spacingXL.heightBox,
-                          _buildLoginForm(l10n),
-                          const Spacer(),
-                        ],
-                      ),
-                    ),
+                      _buildTermsCheckbox(l10n),
+                    ],
                   ),
                 ),
               ),
-              _buildTermsCheckbox(l10n),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -90,23 +99,23 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
         Text(
           l10n.loginTitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
-            fontSize: AppTextStyles.fontSize7XL,
+            fontSize: Responsive.titleFontSize(context),
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            shadows: [
+            shadows: const [
               Shadow(color: Colors.black87, blurRadius: 20),
             ],
           ),
         ),
-        AppDimensions.spacingS.heightBox,
+        SizedBox(height: Responsive.spacingS(context)),
         Text(
           l10n.loginSubtitle,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white.withOpacity(0.8),
-            fontSize: AppTextStyles.fontSizeXL,
+            fontSize: Responsive.bodyFontSize(context),
             shadows: const [
               Shadow(color: Colors.black87, blurRadius: 15),
             ],
@@ -125,13 +134,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           children: [
             Text(
               l10n.email,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
-                fontSize: AppTextStyles.fontSizeL,
+                fontSize: Responsive.bodyFontSize(context),
                 fontWeight: FontWeight.w600,
               ),
             ),
-            AppDimensions.spacingS.heightBox,
+            SizedBox(height: Responsive.spacingS(context)),
             CustomTextField(
               controller: _emailController,
               hintText: l10n.emailHint,
@@ -146,11 +155,12 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 return null;
               },
             ),
-            AppDimensions.spacingL.heightBox,
+            SizedBox(height: Responsive.spacingL(context)),
             PrimaryButton(
               title: l10n.continueLabel,
               onPressed: _handleSubmit,
               isLoading: _isLoading,
+              height: Responsive.buttonHeight(context),
             ),
           ],
         ),
@@ -161,35 +171,35 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
   Widget _buildTermsCheckbox(AppLocalizations l10n) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        AppDimensions.paddingL,
+        Responsive.spacingL(context),
         0,
-        AppDimensions.paddingL,
-        AppDimensions.paddingL,
+        Responsive.spacingL(context),
+        Responsive.spacingL(context),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Transform.scale(
-            scale: 0.9,
+            scale: Responsive.isMobile(context) ? 0.9 : 1.0,
             child: Checkbox(
               value: _isChecked,
               onChanged: (v) => setState(() => _isChecked = v!),
               activeColor: Colors.orange,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radiusXS),
+                borderRadius: BorderRadius.circular(Responsive.radiusXS(context)),
               ),
             ),
           ),
-          SizedBox(width: AppDimensions.spacingXS),
+          SizedBox(width: Responsive.spacingXS(context)),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 12),
+              padding: EdgeInsets.only(top: Responsive.spacingS(context) + 4),
               child: Text.rich(
                 TextSpan(
                   text: l10n.termsAccept,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
-                    fontSize: AppTextStyles.fontSizeBase,
+                    fontSize: Responsive.captionFontSize(context),
                     height: 1.4,
                   ),
                   children: [

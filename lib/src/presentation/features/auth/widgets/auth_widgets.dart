@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import '../../../../core/app_assets.dart';
-import '../../../../core/constants/app_dimensions.dart';
+import '../../../../core/responsive.dart';
 
 class AuthBackground extends StatelessWidget {
   const AuthBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final backgroundHeight = Responsive.authBackgroundHeight(context);
 
     return SizedBox(
-      height: screenHeight * 0.48,
+      height: backgroundHeight,
       child: Stack(
         children: [
           Container(
@@ -51,13 +51,13 @@ class AuthCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppDimensions.paddingL),
+      padding: Responsive.cardPadding(context),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
+        borderRadius: BorderRadius.circular(Responsive.radiusXL(context)),
         border: Border.all(
           color: Colors.white.withOpacity(0.1),
-          width: AppDimensions.borderWidth,
+          width: 1,
         ),
       ),
       child: child,

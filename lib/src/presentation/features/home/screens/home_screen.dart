@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../../data/services/update_service.dart';
+import '../../../../core/responsive.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../providers/movie_provider.dart';
 import '../../../common/loading/loading_spinner.dart';
@@ -31,50 +32,71 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final maxWidth = Responsive.maxContentWidth(context);
 
     return Scaffold(
-      body: Consumer<MovieProvider>(
-        builder: (context, provider, _) {
-          if (provider.isLoading) {
-            return const LoadingSpinner();
-          }
+      body: Center(
+        child: Container(
+          width: maxWidth == double.infinity ? double.infinity : maxWidth,
+          child: Consumer<MovieProvider>(
+            builder: (context, provider, _) {
+              if (provider.isLoading) {
+                return const LoadingSpinner();
+              }
 
-          if (provider.hasError) {
-            return _buildError(provider.errorMessage!, l10n);
-          }
+              if (provider.hasError) {
+                return _buildError(provider.errorMessage!, l10n);
+              }
 
-          if (provider.isEmpty) {
-            return _buildEmpty(l10n);
-          }
+              if (provider.isEmpty) {
+                return _buildEmpty(l10n);
+              }
 
-          return MovieList(movies: provider.movies);
-        },
+              return MovieList(movies: provider.movies);
+            },
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildError(String message, AppLocalizations l10n) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error_outline, size: 64, color: context.colorScheme.error),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Text(
+      child: Padding(
+        padding: Responsive.horizontalPadding(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.error_outline,
+              size: Responsive.size64(context),
+              color: context.colorScheme.error,
+            ),
+            SizedBox(height: Responsive.spacingM(context)),
+            Text(
               message,
               textAlign: TextAlign.center,
-              style: context.textTheme.bodyLarge,
+              style: context.textTheme.bodyLarge?.copyWith(
+                fontSize: Responsive.bodyFontSize(context),
+              ),
             ),
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: _loadMovies,
-            icon: const Icon(Icons.refresh),
-            label: Text(l10n.retry),
-          ),
-        ],
+            SizedBox(height: Responsive.spacingL(context)),
+            ElevatedButton.icon(
+              onPressed: _loadMovies,
+              icon: Icon(Icons.refresh, size: Responsive.size20(context)),
+              label: Text(
+                l10n.retry,
+                style: TextStyle(fontSize: Responsive.bodyFontSize(context)),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Responsive.spacingL(context),
+                  vertical: Responsive.spacingM(context),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -84,11 +106,18 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.movie_outlined, size: 64, color: Colors.grey),
-          const SizedBox(height: 16),
+          Icon(
+            Icons.movie_outlined,
+            size: Responsive.size64(context),
+            color: Colors.grey,
+          ),
+          SizedBox(height: Responsive.spacingM(context)),
           Text(
             l10n.noMovies,
-            style: context.textTheme.bodyLarge?.copyWith(color: Colors.grey),
+            style: context.textTheme.bodyLarge?.copyWith(
+              color: Colors.grey,
+              fontSize: Responsive.bodyFontSize(context),
+            ),
           ),
         ],
       ),

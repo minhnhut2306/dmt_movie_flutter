@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
 import '../../../data/models/movie.dart';
 import '../../../core/router/route_names.dart';
+import '../../../core/responsive.dart';
 import '../../../core/utils/extensions.dart';
 
 class MovieCard extends StatelessWidget {
@@ -14,9 +15,27 @@ class MovieCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return ListTile(
-      title: Text(movie.title),
-      subtitle: Text(l10n.seeDetails),
-      trailing: const Icon(Icons.arrow_forward),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: Responsive.spacingM(context),
+        vertical: Responsive.spacingS(context),
+      ),
+      title: Text(
+        movie.title,
+        style: TextStyle(
+          fontSize: Responsive.bodyFontSize(context),
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(
+        l10n.seeDetails,
+        style: TextStyle(
+          fontSize: Responsive.captionFontSize(context),
+        ),
+      ),
+      trailing: Icon(
+        Icons.arrow_forward,
+        size: Responsive.size24(context),
+      ),
       onTap: () {
         context.pushNamed(RouteNames.movieDetail, arguments: movie);
       },
