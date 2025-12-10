@@ -1,5 +1,6 @@
+import 'package:dmt_movie_flutter/src/core/app_colors.dart';
+import 'package:dmt_movie_flutter/src/core/responsive.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_dimensions.dart';
 
 class AuthCard extends StatelessWidget {
   final Widget child;
@@ -8,15 +9,28 @@ class AuthCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
-      padding: EdgeInsets.all(AppDimensions.paddingL),
+      padding: Responsive.cardPadding(context),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(AppDimensions.radiusXL),
+        color: isDark 
+          ? Colors.white.withOpacity(0.08)
+          : Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(Responsive.radiusXL(context)),
         border: Border.all(
-          color: Colors.white.withOpacity(0.1),
-          width: AppDimensions.borderWidth,
+          color: isDark 
+            ? Colors.white.withOpacity(0.1)
+            : AppColors.border.withOpacity(0.3),
+          width: 1,
         ),
+        boxShadow: isDark ? [] : [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: child,
     );

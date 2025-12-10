@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
-import '../../../../core/responsive.dart';
+import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/utils/extensions.dart';
+import '../../../../core/utils/validators.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
 import '../widgets/auth_widgets.dart';
@@ -34,105 +35,88 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     setState(() => _isLoading = false);
 
     if (mounted) {
-      context.pushNamed(RouteNames.otp, arguments: _emailController.text);
+      context.pushNamed(
+        RouteNames.otp,
+        arguments: _emailController.text,
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isDark = context.isDarkMode;
-
+    
     return Scaffold(
-      backgroundColor: isDark ? Colors.black : Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final maxWidth = Responsive.maxContentWidth(context);
-
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Center(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: context.screenHeight,
+          child: Column(
+            children: [
+              const AuthBackground(),
+              Expanded(
                 child: Container(
-                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        const AuthBackground(),
-                        Container(
-                          color: isDark ? Colors.black : Colors.white,
-                          child: Transform.translate(
-                            offset: Offset(0, Responsive.authHeaderOffset(context)),
-                            child: Padding(
-                              padding: Responsive.horizontalPadding(context),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _buildHeader(l10n, isDark),
-                                  SizedBox(height: Responsive.spacingXL(context)),
-                                  _buildLoginForm(l10n, isDark),
-                                  SizedBox(height: Responsive.spacing3XL(context)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        _buildTermsCheckbox(l10n, isDark),
-                      ],
+                  color: Colors.black,
+                  child: Transform.translate(
+                    offset: const Offset(0, -150),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.paddingL,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildHeader(l10n),
+                          AppDimensions.spacingXL.heightBox,
+                          _buildLoginForm(l10n),
+                          const Spacer(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+              _buildTermsCheckbox(l10n),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
+  Widget _buildHeader(AppLocalizations l10n) {
     return Column(
       children: [
         Text(
           l10n.loginTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: isDark ? Colors.white : Colors.black87,
-            fontSize: Responsive.titleFontSize(context),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 28,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            height: Responsive.lineHeight12(context),
-            shadows: isDark ? [
-              Shadow(
-                color: Colors.black87,
-                blurRadius: Responsive.shadowBlur(context),
-              ),
-            ] : [],
+            shadows: [
+              Shadow(color: Colors.black87, blurRadius: 20),
+            ],
           ),
         ),
-        SizedBox(height: Responsive.spacingS(context)),
+        AppDimensions.spacingS.heightBox,
         Text(
           l10n.loginSubtitle,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isDark 
-              ? Colors.white.withOpacity(0.8)
-              : Colors.black87.withOpacity(0.7),
-            fontSize: Responsive.bodyFontSize(context),
-            height: Responsive.lineHeight14(context),
-            shadows: isDark ? [
-              Shadow(
-                color: Colors.black87,
-                blurRadius: Responsive.textBlur(context),
-              ),
-            ] : [],
+            color: Colors.white.withOpacity(0.8),
+            fontSize: 15,
+            shadows: const [
+              Shadow(color: Colors.black87, blurRadius: 15),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildLoginForm(AppLocalizations l10n, bool isDark) {
+  Widget _buildLoginForm(AppLocalizations l10n) {
     return AuthCard(
       child: Form(
         key: _formKey,
@@ -141,13 +125,13 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
           children: [
             Text(
               l10n.email,
-              style: TextStyle(
-                color: isDark ? Colors.white : Colors.black87,
-                fontSize: Responsive.bodyFontSize(context),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: Responsive.spacingS(context)),
+            AppDimensions.spacingS.heightBox,
             CustomTextField(
               controller: _emailController,
               hintText: l10n.emailHint,
@@ -162,12 +146,11 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
                 return null;
               },
             ),
-            SizedBox(height: Responsive.spacingL(context)),
+            AppDimensions.spacingL.heightBox,
             PrimaryButton(
               title: l10n.continueLabel,
               onPressed: _handleSubmit,
               isLoading: _isLoading,
-              height: Responsive.buttonHeight(context),
             ),
           ],
         ),
@@ -175,41 +158,39 @@ class _LoginRegisterScreenState extends State<LoginRegisterScreen> {
     );
   }
 
-  Widget _buildTermsCheckbox(AppLocalizations l10n, bool isDark) {
+  Widget _buildTermsCheckbox(AppLocalizations l10n) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        Responsive.spacingL(context),
+        AppDimensions.paddingL,
         0,
-        Responsive.spacingL(context),
-        Responsive.spacingL(context),
+        AppDimensions.paddingL,
+        AppDimensions.paddingL,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Transform.scale(
-            scale: Responsive.isMobile(context) ? 0.9 : 1.0,
+            scale: 0.9,
             child: Checkbox(
               value: _isChecked,
               onChanged: (v) => setState(() => _isChecked = v!),
               activeColor: Colors.orange,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Responsive.radiusXS(context)),
+                borderRadius: BorderRadius.circular(AppDimensions.radiusXS),
               ),
             ),
           ),
-          SizedBox(width: Responsive.spacingXS(context)),
+          SizedBox(width: AppDimensions.spacingXS),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(top: Responsive.spacingS(context) + 4),
+              padding: const EdgeInsets.only(top: 12),
               child: Text.rich(
                 TextSpan(
                   text: l10n.termsAccept,
                   style: TextStyle(
-                    color: isDark 
-                      ? Colors.white.withOpacity(0.8)
-                      : Colors.black87.withOpacity(0.7),
-                    fontSize: Responsive.captionFontSize(context),
-                    height: Responsive.lineHeight14(context),
+                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 13,
+                    height: 1.4,
                   ),
                   children: [
                     TextSpan(

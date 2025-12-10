@@ -1,11 +1,12 @@
+import 'package:dmt_movie_flutter/src/presentation/features/auth/widgets/auth_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:dmt_movie_flutter/gen_l10n/app_localizations.dart';
-import '../../../../core/responsive.dart';
+import '../../../../core/constants/app_dimensions.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../common/inputs/custom_text_field.dart';
 import '../../../common/buttons/primary_button.dart';
-import '../widgets/auth_widgets.dart';
+import '../widgets/auth_card.dart' hide AuthCard;
 
 class OtpScreen extends StatefulWidget {
   final String? email;
@@ -48,100 +49,80 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isDark = context.isDarkMode;
-
+    
     return Scaffold(
-      backgroundColor: isDark ? Colors.black : Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final maxWidth = Responsive.maxContentWidth(context);
-
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Center(
+      backgroundColor: Colors.black,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: context.screenHeight,
+          child: Column(
+            children: [
+              const AuthBackground(),
+              Expanded(
                 child: Container(
-                  width: maxWidth == double.infinity ? double.infinity : maxWidth,
-                  child: IntrinsicHeight(
-                    child: Column(
-                      children: [
-                        const AuthBackground(),
-                        Container(
-                          color: isDark ? Colors.black : Colors.white,
-                          child: Transform.translate(
-                            offset: Offset(0, Responsive.authHeaderOffset(context)),
-                            child: Padding(
-                              padding: Responsive.horizontalPadding(context),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _buildHeader(l10n, isDark),
-                                  SizedBox(height: Responsive.spacingXL(context)),
-                                  _buildOtpForm(l10n, isDark),
-                                  SizedBox(height: Responsive.spacing3XL(context)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        _buildBackButton(l10n, isDark),
-                      ],
+                  color: Colors.black,
+                  child: Transform.translate(
+                    offset: const Offset(0, -150),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppDimensions.paddingL,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _buildHeader(l10n),
+                          AppDimensions.spacingXL.heightBox,
+                          _buildOtpForm(l10n),
+                          const Spacer(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+              _buildBackButton(l10n),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Widget _buildHeader(AppLocalizations l10n, bool isDark) {
+  Widget _buildHeader(AppLocalizations l10n) {
     return Column(
       children: [
         Text(
           l10n.otpTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: isDark ? Colors.white : Colors.black87,
-            fontSize: Responsive.titleFontSize(context),
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 28,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
-            height: Responsive.lineHeight12(context),
-            shadows: isDark ? [
-              Shadow(
-                color: Colors.black87,
-                blurRadius: Responsive.shadowBlur(context),
-              ),
-            ] : [],
+            shadows: [
+              Shadow(color: Colors.black87, blurRadius: 20),
+            ],
           ),
         ),
-        SizedBox(height: Responsive.spacingS(context)),
+        AppDimensions.spacingS.heightBox,
         Text(
           widget.email != null
               ? l10n.otpSubtitle(widget.email!)
               : l10n.otpSubtitle('email của bạn'),
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isDark 
-              ? Colors.white.withOpacity(0.8)
-              : Colors.black87.withOpacity(0.7),
-            fontSize: Responsive.bodyFontSize(context),
-            height: Responsive.lineHeight14(context),
-            shadows: isDark ? [
-              Shadow(
-                color: Colors.black87,
-                blurRadius: Responsive.textBlur(context),
-              ),
-            ] : [],
+            color: Colors.white.withOpacity(0.8),
+            fontSize: 15,
+            shadows: const [
+              Shadow(color: Colors.black87, blurRadius: 15),
+            ],
           ),
         ),
       ],
     );
   }
 
-  Widget _buildOtpForm(AppLocalizations l10n, bool isDark) {
+  Widget _buildOtpForm(AppLocalizations l10n) {
     return AuthCard(
       child: Form(
         key: _formKey,
@@ -150,13 +131,13 @@ class _OtpScreenState extends State<OtpScreen> {
           children: [
             Text(
               l10n.otpCode,
-              style: TextStyle(
-                color: isDark ? Colors.white : Colors.black87,
-                fontSize: Responsive.bodyFontSize(context),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: Responsive.spacingS(context)),
+            AppDimensions.spacingS.heightBox,
             CustomTextField(
               controller: _otpController,
               hintText: l10n.otpHint,
@@ -176,19 +157,17 @@ class _OtpScreenState extends State<OtpScreen> {
               onPressed: _handleResendOtp,
               child: Text(
                 l10n.resendOtp,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.blue,
-                  fontSize: Responsive.bodyFontSize(context),
                   decoration: TextDecoration.underline,
                 ),
               ),
             ),
-            SizedBox(height: Responsive.spacingL(context)),
+            AppDimensions.spacingL.heightBox,
             PrimaryButton(
               title: l10n.continueLabel,
               onPressed: _handleSubmit,
               isLoading: _isLoading,
-              height: Responsive.buttonHeight(context),
             ),
           ],
         ),
@@ -196,24 +175,22 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildBackButton(AppLocalizations l10n, bool isDark) {
+  Widget _buildBackButton(AppLocalizations l10n) {
     return GestureDetector(
       onTap: () => context.pop(),
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-          Responsive.spacingL(context),
+          AppDimensions.paddingL,
           0,
-          Responsive.spacingL(context),
-          Responsive.spacingL(context),
+          AppDimensions.paddingL,
+          AppDimensions.paddingL,
         ),
         child: Text(
           l10n.backToLogin,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isDark 
-              ? Colors.white.withOpacity(0.8)
-              : Colors.black87.withOpacity(0.7),
-            fontSize: Responsive.captionFontSize(context),
+            color: Colors.white.withOpacity(0.8),
+            fontSize: 13,
             decoration: TextDecoration.underline,
           ),
         ),
