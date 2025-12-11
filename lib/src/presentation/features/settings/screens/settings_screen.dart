@@ -154,6 +154,7 @@ class SettingsScreen extends StatelessWidget {
               
               SizedBox(height: Responsive.spacingM(context)),
               
+              // ✅ CẬP NHẬT: Thêm context khi gọi setLocaleCode
               _SettingsTile(
                 title: 'language'.tr(),
                 child: DropdownButton<String>(
@@ -193,7 +194,8 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                   ],
-                  onChanged: (v) => settings.setLocaleCode(v == '' ? null : v),
+                  // ✅ QUAN TRỌNG: Truyền context vào đây
+                  onChanged: (v) => settings.setLocaleCode(v == '' ? null : v, context),
                 ),
               ),
               SizedBox(height: Responsive.spacingS(context)),

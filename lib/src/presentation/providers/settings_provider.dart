@@ -1,5 +1,7 @@
+// lib/src/presentation/providers/settings_provider.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../core/constants/storage_keys.dart';
 
 class SettingsProvider extends ChangeNotifier {
@@ -42,25 +44,30 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setLocale(Locale? locale) async {
+  Future<void> setLocale(Locale? locale, BuildContext context) async {
     _locale = locale;
     final prefs = await SharedPreferences.getInstance();
+    
     if (locale == null) {
       await prefs.remove(StorageKeys.localeCode);
+      await context.resetLocale();
     } else {
       await prefs.setString(StorageKeys.localeCode, locale.languageCode);
+      await context.setLocale(locale);
     }
+    
     notifyListeners();
   }
 
-  Future<void> setLocaleCode(String? code) async {
+  Future<void> setLocaleCode(String? code, BuildContext context) async {
     if (code == null || code.isEmpty) {
-      await setLocale(null);
+      await setLocale(null, context);
     } else {
-      await setLocale(Locale(code));
+      await setLocale(Locale(code), context);
     }
   }
 
   Future<void> useSystemTheme() => setThemeMode(ThemeMode.system);
-  Future<void> useSystemLocale() => setLocale(null);
+
+  Future<void> useSystemLocale(BuildContext context) => setLocale(null, context);
 }
